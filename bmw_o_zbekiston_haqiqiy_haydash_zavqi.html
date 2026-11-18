@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMW O‘zbekiston | Haqiqiy haydash zavqi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Helvetica Neue', 'Arial', 'sans-serif'],
+          },
+          colors: {
+            bmw: {
+              blue: '#1C69D4',
+              blueDark: '#0653B6',
+              obsidian: '#1C1C1C',
+              dark: '#0E0E0E',
+              grayLight: '#F2F2F2',
+              grayMid: '#666666',
+              grayBorder: '#E6E6E6',
+              mLightBlue: '#009ADA',
+              mDarkBlue: '#1B365D',
+              mRed: '#E2231A'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1C1C1C;
+      background-color: #FFFFFF;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* BMW Architectural Sharp Edges & Transitions */
+    .bmw-transition {
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .bmw-img-zoom {
+      transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .group:hover .bmw-img-zoom {
+      transform: scale(1.045);
+    }
+    .bmw-btn-primary {
+      background-color: #1C69D4;
+      color: #FFFFFF;
+      border-radius: 2px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: background-color 0.25s ease, transform 0.2s ease;
+    }
+    .bmw-btn-primary:hover {
+      background-color: #0653B6;
+    }
+    .bmw-btn-outline-light {
+      background-color: transparent;
+      color: #FFFFFF;
+      border: 1.5px solid #FFFFFF;
+      border-radius: 2px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+    .bmw-btn-outline-light:hover {
+      background-color: #FFFFFF;
+      color: #1C1C1C;
+    }
+    .bmw-btn-outline-dark {
+      background-color: transparent;
+      color: #1C1C1C;
+      border: 1.5px solid #1C1C1C;
+      border-radius: 2px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+    .bmw-btn-outline-dark:hover {
+      background-color: #1C1C1C;
+      color: #FFFFFF;
+    }
+    .nav-link-indicator {
+      position: relative;
+    }
+    .nav-link-indicator::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background-color: #1C69D4;
+      transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .nav-link-indicator:hover::after,
+    .nav-link-indicator.active::after {
+      width: 100%;
+    }
+    /* Custom Range Slider */
+    input[type="range"].bmw-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: #E6E6E6;
+      outline: none;
+    }
+    input[type="range"].bmw-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 2px;
+      background: #1C69D4;
+      cursor: pointer;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+    /* Fade animation */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-view {
+      animation: fadeSlideUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    /* Hide scrollbar for clean horizontal strips */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-white text-[#1C1C1C] selection:bg-[#1C69D4] selection:text-white">
+
+  <!-- TOP UTILITY / HEADER NAVIGATION -->
+  <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black/80 backdrop-blur-md text-white border-b border-white/15">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+      <div class="flex items-center justify-between h-[76px] lg:h-[84px]">
+        
+        <!-- Left: Official BMW Roundel SVG + Primary Nav -->
+        <div class="flex items-center space-x-8 xl:space-x-10 h-full">
+          <button onclick="navigateTo('home')" class="flex items-center space-x-3 focus:outline-none group" aria-label="BMW Bosh sahifa">
+            <!-- Authentic BMW Roundel SVG -->
+            <svg class="w-11 h-11 sm:w-12 sm:h-12 transition-transform duration-500 group-hover:scale-105" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="#0B0B0B" stroke="#E6E6E6" stroke-width="2.5"/>
+              <circle cx="50" cy="50" r="31" fill="#FFFFFF" stroke="#8C8C8C" stroke-width="1.5"/>
+              <!-- Blue & White Quadrants -->
+              <path d="M50 50 L50 20 A30 30 0 0 0 20 50 Z" fill="#1C69D4"/>
+              <path d="M50 50 L80 50 A30 30 0 0 1 50 80 Z" fill="#1C69D4"/>
+              <path d="M50 50 L50 20 A30 30 0 0 1 80 50 Z" fill="#FFFFFF"/>
+              <path d="M50 50 L20 50 A30 30 0 0 0 50 80 Z" fill="#FFFFFF"/>
+              <!-- Crosshair -->
+              <line x1="50" y1="20" x2="50" y2="80" stroke="#1C1C1C" stroke-width="1.5"/>
+              <line x1="20" y1="50" x2="80" y2="50" stroke="#1C1C1C" stroke-width="1.5"/>
+              <circle cx="50" cy="50" r="30" stroke="#1C1C1C" stroke-width="1.5"/>
+              <!-- BMW Letters -->
+              <text x="50" y="14.5" fill="#FFFFFF" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="1.5">M</text>
+              <text x="27" y="24" fill="#FFFFFF" font-size="11" font-weight="800" text-anchor="middle" transform="rotate(-42 27 24)">B</text>
+              <text x="73" y="24" fill="#FFFFFF" font-size="11" font-weight="800" text-anchor="middle" transform="rotate(42 73 24)">W</text>
+            </svg>
+            <div class="hidden sm:flex flex-col text-left">
+              <span class="text-[11px] uppercase tracking-[0.22em] font-semibold opacity-75">O‘zbekiston</span>
+              <span class="text-xs font-medium opacity-90">Haqiqiy haydash zavqi</span>
+            </div>
+          </button>
+
+          <!-- Desktop Main Navigation -->
+          <nav class="hidden lg:flex items-center space-x-6 xl:space-x-7 h-full text-[15px] font-semibold">
+            <button onclick="toggleMegaMenu()" id="nav-models-btn" class="nav-link-indicator h-full flex items-center space-x-1.5 hover:text-[#1C69D4] transition-colors">
+              <span>Modellar</span>
+              <svg id="mega-chevron" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <button onclick="navigateTo('electric')" data-nav="electric" class="nav-link-indicator h-full flex items-center hover:text-[#1C69D4] transition-colors">Elektromobillar</button>
+            <button onclick="navigateTo('bmwm')" data-nav="bmwm" class="nav-link-indicator h-full flex items-center space-x-1.5 hover:text-[#1C69D4] transition-colors">
+              <span class="inline-flex items-center">
+                <span class="w-1.5 h-3.5 bg-[#009ADA] -skew-x-12 mr-0.5"></span>
+                <span class="w-1.5 h-3.5 bg-[#1B365D] -skew-x-12 mr-0.5"></span>
+                <span class="w-1.5 h-3.5 bg-[#E2231A] -skew-x-12 mr-1.5"></span>
+                BMW M
+              </span>
+            </button>
+            <button onclick="navigateTo('bmwi')" data-nav="bmwi" class="nav-link-indicator h-full flex items-center hover:text-[#1C69D4] transition-colors">BMW i</button>
+            <button onclick="navigateTo('discover')" data-nav="discover" class="nav-link-indicator h-full flex items-center hover:text-[#1C69D4] transition-colors">BMW olami</button>
+            <button onclick="navigateTo('offers')" data-nav="offers" class="nav-link-indicator h-full flex items-center hover:text-[#1C69D4] transition-colors">Takliflar</button>
+            <button onclick="navigateTo('media')" data-nav="media" class="nav-link-indicator h-full flex items-center hover:text-[#1C69D4] transition-colors">Galereya</button>
+            <button onclick="navigateTo('contact')" data-nav="contact" class="nav-link-indicator h-full flex items-center hover:text-[#1C69D4] transition-colors">Aloqa</button>
+          </nav>
+        </div>
+
+        <!-- Right: Utility Controls (Search, My BMW Saved Garage, Dealer Locator, Mobile Menu) -->
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <button onclick="openSearchOverlay()" class="p-2.5 hover:text-[#1C69D4] transition-colors flex items-center space-x-2" title="Qidiruv" aria-label="Qidiruv">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <span class="hidden xl:inline text-sm font-medium">Qidiruv</span>
+          </button>
+
+          <button onclick="navigateTo('contact')" class="hidden sm:flex p-2.5 hover:text-[#1C69D4] transition-colors items-center space-x-1.5" title="Dilerlar markazi" aria-label="Dilerlar">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </button>
+
+          <button onclick="openGarageDrawer()" class="relative p-2.5 hover:text-[#1C69D4] transition-colors flex items-center space-x-1.5" title="Mening BMW Garajim" aria-label="Mening BMW">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span id="garage-badge" class="hidden absolute top-1.5 right-1.5 w-4 h-4 bg-[#1C69D4] text-white text-[10px] font-bold flex items-center justify-center rounded-sm">0</span>
+          </button>
+
+          <button onclick="openTestDriveModal()" class="hidden md:inline-flex ml-2 px-4 py-2 bg-[#1C69D4] hover:bg-[#0653B6] text-white text-xs font-bold uppercase tracking-wider rounded-[2px] transition-colors">
+            Sinov haydovi
+          </button>
+
+          <!-- Mobile Hamburger -->
+          <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 hover:text-[#1C69D4] focus:outline-none" aria-label="Menyu">
+            <svg id="mobile-menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESKTOP MEGA MENU DROPDOWN (MODELLAR) -->
+    <div id="mega-menu" class="hidden bg-white text-[#1C1C1C] border-b border-[#E6E6E6] shadow-2xl">
+      <div class="max-w-[1440px] mx-auto px-8 lg:px-12 py-8">
+        <div class="flex items-center justify-between border-b border-[#E6E6E6] pb-4 mb-6">
+          <div class="flex flex-wrap gap-2" id="mega-series-tabs">
+            <button onclick="filterMegaMenu('all')" class="mega-tab active px-4 py-1.5 text-sm font-bold bg-[#1C1C1C] text-white rounded-[2px]">Barcha modellar</button>
+            <button onclick="filterMegaMenu('i')" class="mega-tab px-4 py-1.5 text-sm font-semibold hover:bg-[#F2F2F2] rounded-[2px]">BMW i (Elektr)</button>
+            <button onclick="filterMegaMenu('M')" class="mega-tab px-4 py-1.5 text-sm font-semibold hover:bg-[#F2F2F2] rounded-[2px]">BMW M</button>
+            <button onclick="filterMegaMenu('X')" class="mega-tab px-4 py-1.5 text-sm font-semibold hover:bg-[#F2F2F2] rounded-[2px]">BMW X (SUV)</button>
+            <button onclick="filterMegaMenu('Sedan')" class="mega-tab px-4 py-1.5 text-sm font-semibold hover:bg-[#F2F2F2] rounded-[2px]">Sedanlar</button>
+          </div>
+          <div class="flex items-center space-x-6">
+            <button onclick="closeMegaMenu(); navigateTo('models')" class="text-sm font-bold text-[#1C69D4] hover:underline flex items-center">
+              <span>Barcha modellarni ko‘rish</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="closeMegaMenu()" class="p-1.5 text-[#666666] hover:text-black" aria-label="Yopish">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="mega-menu-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 max-h-[60vh] overflow-y-auto pr-2">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE SLIDE-OVER MENU -->
+  <div id="mobile-drawer" class="fixed inset-0 z-50 hidden">
+    <div onclick="toggleMobileMenu()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div class="relative ml-auto w-full max-w-sm bg-white h-full flex flex-col justify-between overflow-y-auto shadow-2xl">
+      <div>
+        <div class="flex items-center justify-between px-6 py-5 border-b border-[#E6E6E6]">
+          <span class="font-extrabold text-lg tracking-tight">BMW O‘ZBEKISTON</span>
+          <button onclick="toggleMobileMenu()" class="p-2 text-[#1C1C1C]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="divide-y divide-[#E6E6E6] px-6">
+          <button onclick="mobileNav('home')" class="w-full py-4 text-left font-bold text-base flex justify-between items-center">
+            <span>Bosh sahifa</span>
+            <span class="text-[#1C69D4]">→</span>
+          </button>
+          <button onclick="mobileNav('models')" class="w-full py-4 text-left font-bold text-base flex justify-between items-center">
+            <span>Barcha modellar</span>
+            <span class="text-[#1C69D4]">→</span>
+          </button>
+          <button onclick="mobileNav('electric')" class="w-full py-4 text-left font-bold text-base flex justify-between items-center">
+            <span>Elektromobillar</span>
+            <span class="text-[#1C69D4]">→</span>
+          </button>
+          <button onclick="mobileNav('bmwm')" class="w-full py-4 text-left font-bold text-base flex justify-between items-center">
+            <span class="flex items-center"><span class="w-1.5 h-3.5 bg-[#E2231A] mr-2"></span>BMW M</span>
+            <span class="text-[#1C69D4]">→</span>
+          </button>
+          <button onclick="mobileNav('bmwi')" class="w-full py-4 text-left font-bold text-base flex justify-between items-center">
+            <span>BMW i</span>
+            <span class="text-[#1C69D4]">→</span>
+          </button>
+          <button onclick="mobileNav('discover')" class="w-full py-4 text-left font-bold text-base flex justify-between items-center">
+            <span>BMW olami</span>
+            <span class="text-[#1C69D4]">→</span>
+          </button>
+          <button onclick="mobileNav('offers')" class="w-full py-4 text-left font-bold text-base flex justify-between items-center">
+            <span>Takliflar va Lizing</span>
+            <span class="text-[#1C69D4]">→</span>
+          </button>
+          <button onclick="mobileNav('media')" class="w-full py-4 text-left font-bold text-base flex justify-between items-center">
+            <span>Galereya va Videolar</span>
+            <span class="text-[#1C69D4]">→</span>
+          </button>
+          <button onclick="mobileNav('contact')" class="w-full py-4 text-left font-bold text-base flex justify-between items-center">
+            <span>Aloqa va Dilerlar</span>
+            <span class="text-[#1C69D4]">→</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6 bg-[#F2F2F2] space-y-3">
+        <button onclick="toggleMobileMenu(); openTestDriveModal()" class="w-full py-3.5 bmw-btn-primary text-sm uppercase tracking-wider">Sinov haydoviga yozilish</button>
+        <button onclick="toggleMobileMenu(); openGarageDrawer()" class="w-full py-3.5 bmw-btn-outline-dark text-sm">Mening BMW Garajim</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT VIEWPORT -->
+  <main id="app-root" class="pt-[76px] lg:pt-[84px] min-h-screen">
+    <!-- Dynamic Views Render Here -->
+  </main>
+
+  <!-- OFFICIAL BMW FOOTER -->
+  <footer class="bg-[#F2F2F2] text-[#1C1C1C] border-t border-[#E6E6E6]">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 py-14 lg:py-20">
+      <!-- Top quick links bar -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-10 mb-12 border-b border-[#D9D9D9] gap-6">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#666666] mb-1">BMW O‘zbekiston</p>
+          <h3 class="text-2xl font-light tracking-tight">Sizning keyingi BMW avtomobilingizni kashf eting</h3>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button onclick="navigateTo('models')" class="px-6 py-3 bg-[#1C1C1C] text-white text-sm font-semibold rounded-[2px] hover:bg-black transition-colors">Barcha modellar</button>
+          <button onclick="openTestDriveModal()" class="px-6 py-3 bmw-btn-primary text-sm">Sinov haydoviga yozilish</button>
+        </div>
+      </div>
+
+      <!-- 4 Columns Directory -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-[0.16em] text-[#666666] mb-5">Aloqa va Ma'lumot</h4>
+          <ul class="space-y-3.5 text-sm font-medium">
+            <li><button onclick="navigateTo('contact')" class="hover:text-[#1C69D4] transition-colors">Dilerlik markazini topish</button></li>
+            <li><button onclick="openTestDriveModal()" class="hover:text-[#1C69D4] transition-colors">Sinov haydoviga buyurtma berish</button></li>
+            <li><button onclick="navigateTo('contact')" class="hover:text-[#1C69D4] transition-colors">Servis va ehtiyot qismlar</button></li>
+            <li><button onclick="navigateTo('offers')" class="hover:text-[#1C69D4] transition-colors">Korporativ savdolar</button></li>
+            <li><button onclick="navigateTo('contact')" class="hover:text-[#1C69D4] transition-colors">Bog‘lanish: +998 (71) 200-00-07</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-[0.16em] text-[#666666] mb-5">BMW Dunyosi</h4>
+          <ul class="space-y-3.5 text-sm font-medium">
+            <li><button onclick="navigateTo('discover')" class="hover:text-[#1C69D4] transition-colors">BMW haqida</button></li>
+            <li><button onclick="navigateTo('electric')" class="hover:text-[#1C69D4] transition-colors">Elektr mobillik kelajagi</button></li>
+            <li><button onclick="navigateTo('bmwm')" class="hover:text-[#1C69D4] transition-colors">BMW M Motorsport</button></li>
+            <li><button onclick="navigateTo('media')" class="hover:text-[#1C69D4] transition-colors">Foto va Video galereya</button></li>
+            <li><button onclick="navigateTo('discover')" class="hover:text-[#1C69D4] transition-colors">Barqaror rivojlanish</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-[0.16em] text-[#666666] mb-5">Ommabop Modellar</h4>
+          <ul class="space-y-3.5 text-sm font-medium">
+            <li><button onclick="openVehicleDetail('i7')" class="hover:text-[#1C69D4] transition-colors">BMW i7 M70 xDrive</button></li>
+            <li><button onclick="openVehicleDetail('m4')" class="hover:text-[#1C69D4] transition-colors">BMW M4 Competition</button></li>
+            <li><button onclick="openVehicleDetail('x7')" class="hover:text-[#1C69D4] transition-colors">BMW X7 M60i xDrive</button></li>
+            <li><button onclick="openVehicleDetail('ix')" class="hover:text-[#1C69D4] transition-colors">BMW iX xDrive50</button></li>
+            <li><button onclick="openVehicleDetail('5series')" class="hover:text-[#1C69D4] transition-colors">BMW 5-seriya Sedan</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-[0.16em] text-[#666666] mb-5">Ijtimoiy Tarmoqlar</h4>
+          <p class="text-sm text-[#666666] mb-5 leading-relaxed">BMW O‘zbekiston rasmiy sahifalariga obuna bo‘ling va yangiliklardan birinchi bo‘lib xabardor bo‘ling.</p>
+          <div class="flex space-x-3">
+            <a href="#instagram" onclick="event.preventDefault(); showToast('BMW O‘zbekiston Instagram sahifasi ochildi')" class="w-10 h-10 bg-white border border-[#D9D9D9] flex items-center justify-center hover:border-[#1C69D4] hover:text-[#1C69D4] transition-colors" aria-label="Instagram">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#youtube" onclick="event.preventDefault(); navigateTo('media')" class="w-10 h-10 bg-white border border-[#D9D9D9] flex items-center justify-center hover:border-[#1C69D4] hover:text-[#1C69D4] transition-colors" aria-label="YouTube">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="#telegram" onclick="event.preventDefault(); showToast('BMW O‘zbekiston Telegram kanali: @BMW_Uzbekistan')" class="w-10 h-10 bg-white border border-[#D9D9D9] flex items-center justify-center hover:border-[#1C69D4] hover:text-[#1C69D4] transition-colors" aria-label="Telegram">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Legal Bar -->
+      <div class="pt-8 border-t border-[#D9D9D9] flex flex-col sm:flex-row items-center justify-between text-xs text-[#666666] gap-4">
+        <p>© BMW AG 2026 — Barcha huquqlar himoyalangan. BMW O‘zbekiston rasmiy portali.</p>
+        <div class="flex flex-wrap gap-6 font-medium">
+          <button onclick="navigateTo('discover')" class="hover:text-[#1C1C1C]">Huquqiy ma'lumotlar</button>
+          <button onclick="navigateTo('discover')" class="hover:text-[#1C1C1C]">Maxfiylik siyosati</button>
+          <button onclick="navigateTo('discover')" class="hover:text-[#1C1C1C]">Cookie fayllar</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GLOBAL LIVE SEARCH OVERLAY -->
+  <div id="search-overlay" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md">
+    <div class="bg-white w-full shadow-2xl border-b border-[#E6E6E6]">
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-8 py-6">
+        <div class="flex items-center justify-between border-b-2 border-[#1C1C1C] pb-3">
+          <div class="flex items-center flex-1 space-x-3">
+            <svg class="w-6 h-6 text-[#1C69D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input id="global-search-input" type="text" oninput="handleGlobalSearch(this.value)" placeholder="Model nomini kiriting (masalan: i7, M4, X7, Elektromobil)..." class="w-full text-lg sm:text-xl font-medium focus:outline-none bg-transparent" />
+          </div>
+          <button onclick="closeSearchOverlay()" class="p-2 text-[#666666] hover:text-black">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-[#666666] py-1">Tezkor qidiruv:</span>
+          <button onclick="setSearchTerm('i7')" class="text-xs px-3 py-1 bg-[#F2F2F2] hover:bg-[#1C69D4] hover:text-white transition-colors font-semibold">BMW i7</button>
+          <button onclick="setSearchTerm('M4')" class="text-xs px-3 py-1 bg-[#F2F2F2] hover:bg-[#1C69D4] hover:text-white transition-colors font-semibold">BMW M4 Competition</button>
+          <button onclick="setSearchTerm('X7')" class="text-xs px-3 py-1 bg-[#F2F2F2] hover:bg-[#1C69D4] hover:text-white transition-colors font-semibold">BMW X7</button>
+          <button onclick="setSearchTerm('Elektr')" class="text-xs px-3 py-1 bg-[#F2F2F2] hover:bg-[#1C69D4] hover:text-white transition-colors font-semibold">Elektromobillar</button>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-8 py-8 max-h-[75vh] overflow-y-auto">
+      <div id="search-results-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Live search cards render here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MY BMW SAVED GARAGE SLIDE-OVER DRAWER -->
+  <div id="garage-drawer" class="fixed inset-0 z-50 hidden">
+    <div onclick="closeGarageDrawer()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div class="relative ml-auto w-full max-w-md bg-white h-full flex flex-col justify-between shadow-2xl">
+      <div class="p-6 border-b border-[#E6E6E6] flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#1C69D4]">My BMW</span>
+          <h3 class="text-xl font-bold">Mening BMW Garajim</h3>
+        </div>
+        <button onclick="closeGarageDrawer()" class="p-2 hover:bg-[#F2F2F2]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="garage-items-list" class="flex-1 overflow-y-auto p-6 space-y-4">
+        <!-- Saved cars render here -->
+      </div>
+      <div class="p-6 border-t border-[#E6E6E6] bg-[#F2F2F2]">
+        <button onclick="closeGarageDrawer(); openTestDriveModal()" class="w-full py-3.5 bmw-btn-primary text-sm">Tanlangan modelda sinov haydovi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEST DRIVE & CONSULTATION MODAL -->
+  <div id="testdrive-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="bg-white w-full max-w-xl border border-[#E6E6E6] shadow-2xl overflow-hidden animate-view">
+      <div class="bg-[#1C1C1C] text-white px-6 sm:px-8 py-5 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#1C69D4]">BMW O‘zbekiston</span>
+          <h3 class="text-xl font-bold">Sinov haydoviga yozilish</h3>
+        </div>
+        <button onclick="closeTestDriveModal()" class="p-1.5 text-white/70 hover:text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="testdrive-form" onsubmit="submitTestDrive(event)" class="p-6 sm:p-8 space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-[#666666] mb-1.5">Avtomobil modelini tanlang</label>
+          <select id="td-model-select" class="w-full border border-[#CCCCCC] px-3.5 py-2.5 text-sm font-semibold focus:border-[#1C69D4] focus:outline-none bg-white">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#666666] mb-1.5">Ism va familiyangiz *</label>
+            <input type="text" id="td-name" required placeholder="Masalan: Jasur Karimov" class="w-full border border-[#CCCCCC] px-3.5 py-2.5 text-sm focus:border-[#1C69D4] focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#666666] mb-1.5">Telefon raqamingiz *</label>
+            <input type="tel" id="td-phone" required placeholder="+998 90 123 45 67" class="w-full border border-[#CCCCCC] px-3.5 py-2.5 text-sm focus:border-[#1C69D4] focus:outline-none" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#666666] mb-1.5">Dilerlik markazi</label>
+            <select id="td-dealer" class="w-full border border-[#CCCCCC] px-3.5 py-2.5 text-sm font-medium focus:border-[#1C69D4] focus:outline-none bg-white">
+              <option value="Toshkent — Premium Auto (Sergeli)">Toshkent — Premium Auto (Sergeli)</option>
+              <option value="Toshkent — BMW City Center (Yunusobod)">Toshkent — BMW City Center (Yunusobod)</option>
+              <option value="Samarqand — Silk Road Motors">Samarqand — Silk Road Motors</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#666666] mb-1.5">Qulay sana</label>
+            <input type="date" id="td-date" required class="w-full border border-[#CCCCCC] px-3.5 py-2.5 text-sm focus:border-[#1C69D4] focus:outline-none" />
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end space-x-3">
+          <button type="button" onclick="closeTestDriveModal()" class="px-5 py-3 text-sm font-semibold text-[#666666] hover:text-black">Bekor qilish</button>
+          <button type="submit" class="px-7 py-3 bmw-btn-primary text-sm">Arizani yuborish</button>
+        </div>
+      </form>
+
+      <div id="testdrive-success" class="hidden p-8 text-center space-y-4">
+        <div class="w-14 h-14 bg-[#1C69D4] text-white mx-auto flex items-center justify-center rounded-[2px]">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h4 class="text-2xl font-bold">Arizangiz muvaffaqiyatli qabul qilindi!</h4>
+        <p id="td-success-msg" class="text-sm text-[#666666] max-w-md mx-auto leading-relaxed"></p>
+        <button onclick="closeTestDriveModal()" class="px-8 py-3 bg-[#1C1C1C] text-white text-sm font-semibold rounded-[2px]">Yopish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULLSCREEN GALLERY LIGHTBOX MODAL -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-black/95 flex flex-col justify-between p-4 sm:p-8">
+    <div class="flex items-center justify-between text-white">
+      <span id="lightbox-caption" class="text-sm font-semibold tracking-wide">BMW Galereya</span>
+      <button onclick="closeLightbox()" class="p-2 bg-white/10 hover:bg-white/20 rounded-[2px]">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="flex-1 flex items-center justify-center my-4 overflow-hidden">
+      <img id="lightbox-img" src="" alt="BMW Lightbox" class="max-h-[80vh] max-w-full object-contain shadow-2xl" />
+    </div>
+    <div class="text-center text-xs text-white/60">Yopish uchun ESC tugmasini yoki yuqoridagi tugmani bosing</div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="bmw-toast" class="fixed bottom-6 right-6 z-50 hidden bg-[#1C1C1C] text-white px-5 py-3.5 border-l-4 border-[#1C69D4] shadow-2xl text-sm font-medium flex items-center space-x-3">
+    <span id="bmw-toast-text"></span>
+  </div>
+
+  <!-- APPLICATION DATA & ENGINE -->
+  <script>
+    // =========================================================================
+    // 1. CURATED HIGH-RESOLUTION BMW VEHICLE DATABASE (UZBEK LOCALIZED)
+    // =========================================================================
+    const BMW_VEHICLES = [
+      {
+        id: 'i7',
+        name: 'BMW i7 M70 xDrive',
+        series: '7',
+        badge: 'YANGI FLAGMAN • 100% ELEKTR',
+        category: 'Elektromobil',
+        bodyType: 'Sedan',
+        fuelType: 'Elektr',
+        isM: true,
+        isElectric: true,
+        priceUSD: 168500,
+        priceUZS: '2 156 800 000 so‘m',
+        powerHP: '659 ot kuchi',
+        powerKW: '485 kVt',
+        zeroToHundred: '3.7 soniya',
+        topSpeed: '250 km/soat',
+        rangeOrConsumption: '560 km (WLTP)',
+        drive: 'xDrive To‘liq uzatma',
+        heroImage: 'https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1920&q=85',
+        cardImage: 'https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1000&q=80',
+        galleryExterior: [
+          'https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?auto=format&fit=crop&w=1400&q=85'
+        ],
+        galleryInterior: [
+          'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1400&q=85'
+        ],
+        tagline: 'Hashamat va elektr dinamikasining eng yuqori cho‘qqisi.',
+        description: 'BMW i7 M70 xDrive — bu mutlaqo elektr harakatlanish va BMW M muhandisligining uyg‘unligi. 31,3 dyuymli 8K BMW Theatre Screen ekrani, Swarovski kristalli Iconic Glow faralari va 659 ot kuchiga ega ikki elektr motori bilan birinchi klassdagi sayohatni his eting.',
+        trims: [
+          { name: 'BMW i7 eDrive50', power: '455 ot kuchi', accel: '5.5 soniya', price: '$112 900' },
+          { name: 'BMW i7 xDrive60', power: '544 ot kuchi', accel: '4.7 soniya', price: '$134 500' },
+          { name: 'BMW i7 M70 xDrive', power: '659 ot kuchi', accel: '3.7 soniya', price: '$168 500' }
+        ],
+        specs: {
+          engine: 'Ikki sinxron elektr motor (BMW eDrive 5-avlod)',
+          battery: '101.7 kVt·soat yuqori voltli litiy-ion batareya',
+          charging: '195 kVt DC tezkor quvvatlash (10–80% — 34 daqiqa)',
+          dimensions: 'Uzunligi: 5 391 mm | Kengligi: 1 950 mm | Balandligi: 1 544 mm'
+        }
+      },
+      {
+        id: 'm4',
+        name: 'BMW M4 Competition Coupé',
+        series: 'M',
+        badge: 'BMW M MOTORSPORT',
+        category: 'BMW M',
+        bodyType: 'Kupe',
+        fuelType: 'Benzin',
+        isM: true,
+        isElectric: false,
+        priceUSD: 98400,
+        priceUZS: '1 259 500 000 so‘m',
+        powerHP: '530 ot kuchi',
+        powerKW: '390 kVt',
+        zeroToHundred: '3.5 soniya',
+        topSpeed: '290 km/soat',
+        rangeOrConsumption: '10.1 l / 100 km',
+        drive: 'M xDrive To‘liq uzatma',
+        heroImage: 'https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?auto=format&fit=crop&w=1920&q=85',
+        cardImage: 'https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?auto=format&fit=crop&w=1000&q=80',
+        galleryExterior: [
+          'https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=85'
+        ],
+        galleryInterior: [
+          'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1400&q=85'
+        ],
+        tagline: 'Poyga trassasi uchun yaratilgan sof adrenalin.',
+        description: 'BMW M4 Competition Coupé o‘zining 3.0 litrli M TwinPower Turbo olti silindrli qatorli dvigateli, uglerod tolali tom qismi va M Carbon kovshsimon o‘rindiqlari bilan har bir burilishda mutlaq nazorat va hayajon taqdim etadi.',
+        trims: [
+          { name: 'BMW M4 Coupé (6-pog‘onali mexanik)', power: '480 ot kuchi', accel: '4.2 soniya', price: '$84 900' },
+          { name: 'BMW M4 Competition M xDrive', power: '530 ot kuchi', accel: '3.5 soniya', price: '$98 400' },
+          { name: 'BMW M4 CS Limited Edition', power: '550 ot kuchi', accel: '3.4 soniya', price: '$124 000' }
+        ],
+        specs: {
+          engine: '3.0 litrli M TwinPower Turbo 6-silindrli benzinli dvigatel',
+          battery: '8-pog‘onali M Steptronic Sport transmissiya (Drivelogic)',
+          charging: 'M Compound tormoz tizimi va Aktiv M differensial',
+          dimensions: 'Uzunligi: 4 794 mm | Kengligi: 1 887 mm | Balandligi: 1 393 mm'
+        }
+      },
+      {
+        id: 'ix',
+        name: 'BMW iX xDrive50',
+        series: 'i',
+        badge: 'ELEKTR SAV • INNOVATSIYA',
+        category: 'Elektromobil',
+        bodyType: 'SUV / X',
+        fuelType: 'Elektr',
+        isM: false,
+        isElectric: true,
+        priceUSD: 94200,
+        priceUZS: '1 205 760 000 so‘m',
+        powerHP: '523 ot kuchi',
+        powerKW: '385 kVt',
+        zeroToHundred: '4.6 soniya',
+        topSpeed: '200 km/soat',
+        rangeOrConsumption: '630 km (WLTP)',
+        drive: 'Elektr xDrive To‘liq uzatma',
+        heroImage: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1920&q=85',
+        cardImage: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1000&q=80',
+        galleryExterior: [
+          'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1556189250-72ba954cfc2b?auto=format&fit=crop&w=1400&q=85'
+        ],
+        galleryInterior: [
+          'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85'
+        ],
+        tagline: 'Kelajak arxitekturasi va 630 km gacha yurish zaxirasi.',
+        description: 'BMW iX nol emissiya bilan uzoq masofalarni zabt etish uchun yaratilgan. Shy Tech yashirin texnologiyalari, egri BMW Curved Display va tabiiy zaytun barglari bilan oshlangan charm interyeri bilan yangi davrni boshlab beradi.',
+        trims: [
+          { name: 'BMW iX xDrive40', power: '326 ot kuchi', accel: '6.1 soniya', price: '$79 500' },
+          { name: 'BMW iX xDrive50', power: '523 ot kuchi', accel: '4.6 soniya', price: '$94 200' },
+          { name: 'BMW iX M60', power: '619 ot kuchi', accel: '3.8 soniya', price: '$118 000' }
+        ],
+        specs: {
+          engine: 'Ikki elektr dvigatelli xDrive tizimi',
+          battery: '111.5 kVt·soat yuqori sig‘imli batareya',
+          charging: '195 kVt DC tezkor quvvatlash (10 daqiqada +150 km)',
+          dimensions: 'Uzunligi: 4 953 mm | Kengligi: 1 967 mm | Balandligi: 1 695 mm'
+        }
+      },
+      {
+        id: 'x7',
+        name: 'BMW X7 M60i xDrive',
+        series: 'X',
+        badge: 'PREZIDENT KLASSIDAGI SUV',
+        category: 'SUV / X',
+        bodyType: 'SUV / X',
+        fuelType: 'Benzin',
+        isM: true,
+        isElectric: false,
+        priceUSD: 129800,
+        priceUZS: '1 661 440 000 so‘m',
+        powerHP: '530 ot kuchi',
+        powerKW: '390 kVt',
+        zeroToHundred: '4.7 soniya',
+        topSpeed: '250 km/soat',
+        rangeOrConsumption: '12.2 l / 100 km',
+        drive: 'xDrive Intellektual to‘liq uzatma',
+        heroImage: 'https://images.unsplash.com/photo-1556189250-72ba954cfc2b?auto=format&fit=crop&w=1920&q=85',
+        cardImage: 'https://images.unsplash.com/photo-1556189250-72ba954cfc2b?auto=format&fit=crop&w=1000&q=80',
+        galleryExterior: [
+          'https://images.unsplash.com/photo-1556189250-72ba954cfc2b?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1400&q=85'
+        ],
+        galleryInterior: [
+          'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85'
+        ],
+        tagline: 'Kenglik, qudrat va mutlaq obro‘ timsoli.',
+        description: 'BMW X7 M60i xDrive 7 o‘rindiqli keng saloni, ikki qavatli yorug‘lik optikasi, pnevmatik osma tizimi va 4.4 litrli V8 M TwinPower Turbo dvigateli bilan har qanday yo‘lda hukmronlik qiladi.',
+        trims: [
+          { name: 'BMW X7 xDrive40i', power: '381 ot kuchi', accel: '5.8 soniya', price: '$98 500' },
+          { name: 'BMW X7 xDrive40d M Sport', power: '352 ot kuchi', accel: '5.9 soniya', price: '$104 900' },
+          { name: 'BMW X7 M60i xDrive', power: '530 ot kuchi', accel: '4.7 soniya', price: '$129 800' }
+        ],
+        specs: {
+          engine: '4.4 litrli V8 M TwinPower Turbo (48V Mild Hybrid)',
+          battery: '8-pog‘onali Steptronic Sport avtomat uzatmalar qutisi',
+          charging: 'Executive Drive Pro aktiv pnevmatik podveska',
+          dimensions: 'Uzunligi: 5 181 mm | Kengligi: 2 000 mm | Balandligi: 1 835 mm'
+        }
+      },
+      {
+        id: '5series',
+        name: 'BMW 530i xDrive Sedan',
+        series: '5',
+        badge: 'BIZNES SEDAN ETALONI',
+        category: 'Sedan',
+        bodyType: 'Sedan',
+        fuelType: 'Gibrid',
+        isM: false,
+        isElectric: false,
+        priceUSD: 68900,
+        priceUZS: '881 920 000 so‘m',
+        powerHP: '258 ot kuchi',
+        powerKW: '190 kVt',
+        zeroToHundred: '6.1 soniya',
+        topSpeed: '250 km/soat',
+        rangeOrConsumption: '6.4 l / 100 km',
+        drive: 'xDrive To‘liq uzatma',
+        heroImage: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1920&q=85',
+        cardImage: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1000&q=80',
+        galleryExterior: [
+          'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=85'
+        ],
+        galleryInterior: [
+          'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85'
+        ],
+        tagline: 'Dinamik biznes-klass va intellektual raqamli kokpit.',
+        description: 'Yangi avlod BMW 5-seriya Sedan sportcha nafislik va ilg‘or raqamli texnologiyalarni birlashtiradi. BMW Interaction Bar yorug‘lik paneli va Mild-Hybrid tejamkorligi kundalik safarlarni zavqqa aylantiradi.',
+        trims: [
+          { name: 'BMW 520i M Sport', power: '208 ot kuchi', accel: '7.5 soniya', price: '$61 500' },
+          { name: 'BMW 530i xDrive M Sport', power: '258 ot kuchi', accel: '6.1 soniya', price: '$68 900' },
+          { name: 'BMW i5 M60 xDrive (Elektr)', power: '601 ot kuchi', accel: '3.8 soniya', price: '$92 400' }
+        ],
+        specs: {
+          engine: '2.0 litrli BMW TwinPower Turbo + 48V Mild Hybrid',
+          battery: '8-pog‘onali Steptronic Sport transmissiya',
+          charging: 'BMW Operating System 8.5 va Driving Assistant Professional',
+          dimensions: 'Uzunligi: 5 060 mm | Kengligi: 1 900 mm | Balandligi: 1 515 mm'
+        }
+      },
+      {
+        id: '3series',
+        name: 'BMW M340i xDrive Sedan',
+        series: '3',
+        badge: 'SPORT SEDAN AFSONASI',
+        category: 'Sedan',
+        bodyType: 'Sedan',
+        fuelType: 'Benzin',
+        isM: true,
+        isElectric: false,
+        priceUSD: 62400,
+        priceUZS: '798 720 000 so‘m',
+        powerHP: '374 ot kuchi',
+        powerKW: '275 kVt',
+        zeroToHundred: '4.4 soniya',
+        topSpeed: '250 km/soat',
+        rangeOrConsumption: '7.8 l / 100 km',
+        drive: 'xDrive To‘liq uzatma',
+        heroImage: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1920&q=85',
+        cardImage: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1000&q=80',
+        galleryExterior: [
+          'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=85'
+        ],
+        galleryInterior: [
+          'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85'
+        ],
+        tagline: '45 yildan ortiq vaqt davomida sport sedanlar qiroli.',
+        description: 'BMW 3-seriya — haydovchiga yo‘naltirilgan ergonomika, mukammal 50:50 vazn taqsimoti va o‘tkir boshqaruvchanlikning tirik afsonasi.',
+        trims: [
+          { name: 'BMW 320i M Sport', power: '184 ot kuchi', accel: '7.4 soniya', price: '$49 800' },
+          { name: 'BMW 330i xDrive M Sport', power: '245 ot kuchi', accel: '5.8 soniya', price: '$55 900' },
+          { name: 'BMW M340i xDrive', power: '374 ot kuchi', accel: '4.4 soniya', price: '$62 400' }
+        ],
+        specs: {
+          engine: '3.0 litrli M TwinPower Turbo 6-silindrli dvigatel',
+          battery: 'Adaptiv M osma tizimi va M Sport differensial',
+          charging: 'BMW Curved Display va Head-Up displey',
+          dimensions: 'Uzunligi: 4 713 mm | Kengligi: 1 827 mm | Balandligi: 1 440 mm'
+        }
+      },
+      {
+        id: 'i4',
+        name: 'BMW i4 M50 Gran Coupé',
+        series: 'i',
+        badge: '100% ELEKTR GRAN COUPÉ',
+        category: 'Elektromobil',
+        bodyType: 'Kupe',
+        fuelType: 'Elektr',
+        isM: true,
+        isElectric: true,
+        priceUSD: 74900,
+        priceUZS: '958 720 000 so‘m',
+        powerHP: '544 ot kuchi',
+        powerKW: '400 kVt',
+        zeroToHundred: '3.9 soniya',
+        topSpeed: '225 km/soat',
+        rangeOrConsumption: '520 km (WLTP)',
+        drive: 'Elektr xDrive To‘liq uzatma',
+        heroImage: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1920&q=85',
+        cardImage: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1000&q=80',
+        galleryExterior: [
+          'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1400&q=85'
+        ],
+        galleryInterior: [
+          'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85'
+        ],
+        tagline: 'Birinchi to‘liq elektr BMW M Gran Coupé.',
+        description: 'BMW i4 M50 Gran Coupé nafis 4 eshikli kupe siluetini ikkita BMW M eDrive elektr dvigateli va Hans Zimmer tomonidan yaratilgan maxsus akustik tovush bilan uyg‘unlashtiradi.',
+        trims: [
+          { name: 'BMW i4 eDrive35', power: '286 ot kuchi', accel: '6.0 soniya', price: '$57 900' },
+          { name: 'BMW i4 eDrive40 M Sport', power: '340 ot kuchi', accel: '5.6 soniya', price: '$64 500' },
+          { name: 'BMW i4 M50 xDrive', power: '544 ot kuchi', accel: '3.9 soniya', price: '$74 900' }
+        ],
+        specs: {
+          engine: 'Ikki BMW M eDrive elektr dvigateli (Sport Boost funksiyasi)',
+          battery: '83.9 kVt·soat batareya (205 kVt DC quvvatlash)',
+          charging: 'Orqa pnevmatik osma va M Sport tormozlar',
+          dimensions: 'Uzunligi: 4 783 mm | Kengligi: 1 852 mm | Balandligi: 1 448 mm'
+        }
+      },
+      {
+        id: 'xm',
+        name: 'BMW XM Label Red',
+        series: 'M',
+        badge: 'ENG KUCHLI BMW M',
+        category: 'BMW M',
+        bodyType: 'SUV / X',
+        fuelType: 'Gibrid',
+        isM: true,
+        isElectric: false,
+        priceUSD: 185000,
+        priceUZS: '2 368 000 000 so‘m',
+        powerHP: '748 ot kuchi',
+        powerKW: '550 kVt',
+        zeroToHundred: '3.8 soniya',
+        topSpeed: '290 km/soat',
+        rangeOrConsumption: '1.7 l / 100 km + 83 km elektr',
+        drive: 'M xDrive Gibrid to‘liq uzatma',
+        heroImage: 'https://images.unsplash.com/photo-1632245889029-e406faaa34cd?auto=format&fit=crop&w=1920&q=85',
+        cardImage: 'https://images.unsplash.com/photo-1632245889029-e406faaa34cd?auto=format&fit=crop&w=1000&q=80',
+        galleryExterior: [
+          'https://images.unsplash.com/photo-1632245889029-e406faaa34cd?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1556189250-72ba954cfc2b?auto=format&fit=crop&w=1400&q=85'
+        ],
+        galleryInterior: [
+          'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1400&q=85'
+        ],
+        tagline: 'BMW M tarixidagi eng qudratli seriyali avtomobil.',
+        description: 'BMW XM — bu M1 superkaridan keyingi birinchi mustaqil BMW M modeli. 748 ot kuchiga ega V8 Plug-in Hybrid tizimi va M Lounge hashamatli orqa saloni bilan murosasiz kuch namoyishi.',
+        trims: [
+          { name: 'BMW XM 50e', power: '476 ot kuchi', accel: '5.1 soniya', price: '$139 000' },
+          { name: 'BMW XM V8', power: '653 ot kuchi', accel: '4.3 soniya', price: '$162 000' },
+          { name: 'BMW XM Label Red', power: '748 ot kuchi', accel: '3.8 soniya', price: '$185 000' }
+        ],
+        specs: {
+          engine: '4.4 litrli V8 M TwinPower Turbo + M eDrive elektr motor',
+          battery: '29.5 kVt·soat batareya (83 km gacha faqat elektrda)',
+          charging: '1000 Nm aylanish momenti va M Driver’s Package',
+          dimensions: 'Uzunligi: 5 110 mm | Kengligi: 2 005 mm | Balandligi: 1 755 mm'
+        }
+      }
+    ];
+
+    const EXTERIOR_COLORS = [
+      { name: 'Alpine White (Oq)', hex: '#F4F4F4', filter: 'brightness(1.03) contrast(1.02)' },
+      { name: 'Black Sapphire (Qora metallik)', hex: '#141414', filter: 'brightness(0.82) contrast(1.18)' },
+      { name: 'Tanzanite Blue (Ko‘k metallik)', hex: '#122E59', filter: 'hue-rotate(15deg) saturate(1.25) brightness(0.92)' },
+      { name: 'Isle of Man Green (M Yashil)', hex: '#0F4D3A', filter: 'hue-rotate(110deg) saturate(1.15) brightness(0.92)' },
+      { name: 'Brooklyn Grey (Kulrang)', hex: '#7A8187', filter: 'grayscale(0.65) contrast(1.06)' }
+    ];
+
+    const DISCOVER_ARTICLES = [
+      {
+        id: 'neue-klasse',
+        tag: 'INNOVATSIYA VA KELAJAK',
+        title: 'BMW Neue Klasse: Kelajak avlod avtomobillari arxitekturasi',
+        date: '14 Noyabr, 2026',
+        image: 'https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1200&q=85',
+        summary: 'Yangi avlod BMW Panoramic Vision displeyi, 30% ko‘proq yurish zaxirasi va 100% qayta ishlangan ekologik materiallar.',
+        content: 'BMW Neue Klasse — bu shunchaki yangi model emas, balki butun BMW brendining kelajakdagi o‘n yillik rivojlanish strategiyasi. Oltinchi avlod BMW eDrive texnologiyasi batareya quvvatlash tezligini 30 foizga oshiradi, yangi BMW Panoramic Vision esa old oynaning butun kengligi bo‘ylab muhim ma’lumotlarni haydovchi ko‘z o‘ngida aks ettiradi.'
+      },
+      {
+        id: 'm-heritage',
+        tag: 'BMW M MOTORSPORT',
+        title: '50 yildan ortiq g‘alabalar: BMW M muhandislik falsafasi',
+        date: '02 Noyabr, 2026',
+        image: 'https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?auto=format&fit=crop&w=1200&q=85',
+        summary: 'Poyga trassasidan umumiy yo‘llargacha: har bir M harfi ortidagi aerodinamika va dvigatel san’ati.',
+        content: '1972-yilda tashkil etilgan BMW Motorsport GmbH bugungi kunda dunyodagi eng kuchli harf — M ramziga aylandi. Nyurburgring trassasida sinovdan o‘tgan shassi, yuqori aylanishli dvigatellar va mukammal balans har bir BMW M avtomobilini haqiqiy poyga mashinasiga aylantiradi.'
+      },
+      {
+        id: 'uzbekistan-ev',
+        tag: 'ELEKTR MOBILLIK',
+        title: 'O‘zbekistonda BMW i infratuzilmasi va tezkor quvvatlash tarmog‘i',
+        date: '25 Oktabr, 2026',
+        image: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1200&q=85',
+        summary: 'Toshkent, Samarqand va Buxoro yo‘nalishlarida BMW Wallbox hamda DC tezkor quvvatlash stansiyalari.',
+        content: 'BMW O‘zbekiston mijozlariga har bir yangi BMW i elektromobili bilan birga uy sharoitida o‘rnatiladigan 22 kVt quvvatli BMW Wallbox stansiyasini va mamlakat bo‘ylab hamkor tezkor DC stansiyalaridan imtiyozli foydalanish kartasini taqdim etadi.'
+      }
+    ];
+
+    // =========================================================================
+    // 2. APPLICATION STATE MANAGEMENT
+    // =========================================================================
+    let appState = {
+      currentView: 'home',
+      selectedVehicleId: 'i7',
+      selectedColorIndex: 0,
+      selectedTrimIndex: 1,
+      modelFilterBody: 'Barchasi',
+      modelFilterFuel: 'Barchasi',
+      savedGarage: JSON.parse(localStorage.getItem('bmw_uz_garage') || '["i7", "m4"]'),
+      dailyKm: 65,
+      isVideoPlaying: true,
+      activeMediaCategory: 'Barchasi'
+    };
+
+    function saveGarageToStorage() {
+      localStorage.setItem('bmw_uz_garage', JSON.stringify(appState.savedGarage));
+      updateGarageBadge();
+    }
+
+    function updateGarageBadge() {
+      const badge = document.getElementById('garage-badge');
+      if (!badge) return;
+      if (appState.savedGarage.length > 0) {
+        badge.textContent = appState.savedGarage.length;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    function toggleSaveVehicle(vehicleId) {
+      const idx = appState.savedGarage.indexOf(vehicleId);
+      const car = BMW_VEHICLES.find(v => v.id === vehicleId);
+      if (idx > -1) {
+        appState.savedGarage.splice(idx, 1);
+        showToast(`${car.name} Mening BMW garajimdan o‘chirildi`);
+      } else {
+        appState.savedGarage.push(vehicleId);
+        showToast(`${car.name} Mening BMW garajimga saqlandi`);
+      }
+      saveGarageToStorage();
+      if (appState.currentView === 'detail') {
+        renderVehicleDetail(appState.selectedVehicleId);
+      } else if (appState.currentView === 'models') {
+        renderModelsPage();
+      }
+    }
+
+    // =========================================================================
+    // 3. NAVIGATION & ROUTING ENGINE
+    // =========================================================================
+    function navigateTo(view, param = null) {
+      closeMegaMenu();
+      closeSearchOverlay();
+      appState.currentView = view;
+
+      // Update active indicator in navbar
+      document.querySelectorAll('[data-nav]').forEach(btn => {
+        if (btn.getAttribute('data-nav') === view) {
+          btn.classList.add('active', 'text-[#1C69D4]');
+        } else {
+          btn.classList.remove('active', 'text-[#1C69D4]');
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      switch (view) {
+        case 'home':
+          renderHomePage();
+          break;
+        case 'models':
+          if (param) {
+            appState.modelFilterBody = param;
+          }
+          renderModelsPage();
+          break;
+        case 'electric':
+          renderElectricPage();
+          break;
+        case 'bmwm':
+          renderBmwMPage();
+          break;
+        case 'bmwi':
+          renderBmwIPage();
+          break;
+        case 'discover':
+          renderDiscoverPage();
+          break;
+        case 'offers':
+          renderOffersPage();
+          break;
+        case 'media':
+          renderMediaPage();
+          break;
+        case 'contact':
+          renderContactPage();
+          break;
+        case 'detail':
+          if (param) {
+            appState.selectedVehicleId = param;
+            appState.selectedColorIndex = 0;
+            appState.selectedTrimIndex = 1;
+          }
+          renderVehicleDetail(appState.selectedVehicleId);
+          break;
+        default:
+          renderHomePage();
+      }
+    }
+
+    function openVehicleDetail(vehicleId) {
+      navigateTo('detail', vehicleId);
+    }
+
+    function mobileNav(view) {
+      toggleMobileMenu();
+      navigateTo(view);
+    }
+
+    // =========================================================================
+    // 4. MEGA MENU, SEARCH, GARAGE & MODALS
+    // =========================================================================
+    function toggleMegaMenu() {
+      const menu = document.getElementById('mega-menu');
+      const chevron = document.getElementById('mega-chevron');
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        chevron.classList.add('rotate-180');
+        filterMegaMenu('all');
+      } else {
+        closeMegaMenu();
+      }
+    }
+
+    function closeMegaMenu() {
+      const menu = document.getElementById('mega-menu');
+      const chevron = document.getElementById('mega-chevron');
+      if (menu) menu.classList.add('hidden');
+      if (chevron) chevron.classList.remove('rotate-180');
+    }
+
+    function filterMegaMenu(series) {
+      document.querySelectorAll('.mega-tab').forEach(tab => {
+        tab.classList.remove('bg-[#1C1C1C]', 'text-white', 'font-bold');
+        tab.classList.add('font-semibold');
+      });
+      if (event && event.target && event.target.classList.contains('mega-tab')) {
+        event.target.classList.add('bg-[#1C1C1C]', 'text-white', 'font-bold');
+      }
+
+      let filtered = BMW_VEHICLES;
+      if (series === 'i') filtered = BMW_VEHICLES.filter(v => v.isElectric);
+      if (series === 'M') filtered = BMW_VEHICLES.filter(v => v.isM);
+      if (series === 'X') filtered = BMW_VEHICLES.filter(v => v.bodyType === 'SUV / X');
+      if (series === 'Sedan') filtered = BMW_VEHICLES.filter(v => v.bodyType === 'Sedan');
+
+      const grid = document.getElementById('mega-menu-grid');
+      grid.innerHTML = filtered.map(car => `
+        <div onclick="closeMegaMenu(); openVehicleDetail('${car.id}')" class="group cursor-pointer border border-[#E6E6E6] hover:border-[#1C69D4] p-3.5 transition-all bg-white">
+          <div class="aspect-[16/10] overflow-hidden bg-[#F2F2F2] mb-3">
+            <img src="${car.cardImage}" alt="${car.name}" class="w-full h-full object-cover bmw-img-zoom" />
+          </div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[#1C69D4]">${car.fuelType}</span>
+            ${car.isM ? '<span class="text-[10px] font-extrabold px-1.5 py-0.5 bg-[#1C1C1C] text-white">M</span>' : ''}
+          </div>
+          <h4 class="font-bold text-sm text-[#1C1C1C] group-hover:text-[#1C69D4] transition-colors">${car.name}</h4>
+          <p class="text-xs text-[#666666] mt-1">$${car.priceUSD.toLocaleString()} dan</p>
+        </div>
+      `).join('');
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-drawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function openSearchOverlay() {
+      const overlay = document.getElementById('search-overlay');
+      overlay.classList.remove('hidden');
+      const input = document.getElementById('global-search-input');
+      input.value = '';
+      input.focus();
+      handleGlobalSearch('');
+    }
+
+    function closeSearchOverlay() {
+      document.getElementById('search-overlay').classList.add('hidden');
+    }
+
+    function setSearchTerm(term) {
+      const input = document.getElementById('global-search-input');
+      input.value = term;
+      handleGlobalSearch(term);
+    }
+
+    function handleGlobalSearch(query) {
+      const q = query.trim().toLowerCase();
+      const results = BMW_VEHICLES.filter(car =>
+        car.name.toLowerCase().includes(q) ||
+        car.category.toLowerCase().includes(q) ||
+        car.fuelType.toLowerCase().includes(q) ||
+        car.bodyType.toLowerCase().includes(q) ||
+        car.tagline.toLowerCase().includes(q)
+      );
+
+      const container = document.getElementById('search-results-container');
+      if (results.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full bg-white p-10 text-center">
+            <p class="text-lg font-bold mb-2">“${query}” bo‘yicha natija topilmadi</p>
+            <p class="text-sm text-[#666666]">Boshqa model nomini kiriting yoki barcha modellarni ko‘ring.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = results.map(car => `
+        <div onclick="closeSearchOverlay(); openVehicleDetail('${car.id}')" class="bg-white border border-[#E6E6E6] hover:border-[#1C69D4] cursor-pointer overflow-hidden group transition-all">
+          <div class="aspect-[16/9] overflow-hidden bg-[#F2F2F2]">
+            <img src="${car.cardImage}" alt="${car.name}" class="w-full h-full object-cover bmw-img-zoom" />
+          </div>
+          <div class="p-5">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-[#1C69D4]">${car.badge}</span>
+            <h4 class="text-lg font-bold mt-1 group-hover:text-[#1C69D4]">${car.name}</h4>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-[#E6E6E6] text-xs text-[#666666]">
+              <span>${car.powerHP}</span>
+              <span>0–100: ${car.zeroToHundred}</span>
+              <span class="font-bold text-[#1C1C1C]">$${car.priceUSD.toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openGarageDrawer() {
+      const drawer = document.getElementById('garage-drawer');
+      drawer.classList.remove('hidden');
+      renderGarageList();
+    }
+
+    function closeGarageDrawer() {
+      document.getElementById('garage-drawer').classList.add('hidden');
+    }
+
+    function renderGarageList() {
+      const list = document.getElementById('garage-items-list');
+      if (appState.savedGarage.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-14">
+            <p class="font-bold text-base mb-2">Garajingiz hozircha bo‘sh</p>
+            <p class="text-sm text-[#666666] mb-6">Yoqtirgan BMW modellaringizni saqlang va ularni solishtiring.</p>
+            <button onclick="closeGarageDrawer(); navigateTo('models')" class="px-6 py-3 bmw-btn-primary text-sm">Modellarni ko‘rish</button>
+          </div>`;
+        return;
+      }
+
+      list.innerHTML = appState.savedGarage.map(id => {
+        const car = BMW_VEHICLES.find(v => v.id === id);
+        if (!car) return '';
+        return `
+          <div class="border border-[#E6E6E6] p-4 flex gap-4 items-center">
+            <img src="${car.cardImage}" alt="${car.name}" class="w-24 h-16 object-cover bg-[#F2F2F2]" />
+            <div class="flex-1 min-w-0">
+              <h4 onclick="closeGarageDrawer(); openVehicleDetail('${car.id}')" class="font-bold text-sm truncate cursor-pointer hover:text-[#1C69D4]">${car.name}</h4>
+              <p class="text-xs text-[#666666]">${car.powerHP} • $${car.priceUSD.toLocaleString()}</p>
+              <div class="flex space-x-3 mt-2">
+                <button onclick="closeGarageDrawer(); openVehicleDetail('${car.id}')" class="text-xs font-bold text-[#1C69D4] hover:underline">Batafsil</button>
+                <button onclick="toggleSaveVehicle('${car.id}'); renderGarageList()" class="text-xs text-[#666666] hover:text-red-600">O‘chirish</button>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function openTestDriveModal(preselectedModelId = null) {
+      const modal = document.getElementById('testdrive-modal');
+      const form = document.getElementById('testdrive-form');
+      const success = document.getElementById('testdrive-success');
+      const select = document.getElementById('td-model-select');
+
+      form.classList.remove('hidden');
+      success.classList.add('hidden');
+
+      select.innerHTML = BMW_VEHICLES.map(car =>
+        `<option value="${car.name}" ${preselectedModelId === car.id ? 'selected' : ''}>${car.name} (${car.powerHP})</option>`
+      ).join('');
+
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      document.getElementById('td-date').value = tomorrow.toISOString().split('T')[0];
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeTestDriveModal() {
+      document.getElementById('testdrive-modal').classList.add('hidden');
+    }
+
+    function submitTestDrive(e) {
+      e.preventDefault();
+      const model = document.getElementById('td-model-select').value;
+      const name = document.getElementById('td-name').value;
+      const dealer = document.getElementById('td-dealer').value;
+      const date = document.getElementById('td-date').value;
+
+      document.getElementById('testdrive-form').classList.add('hidden');
+      document.getElementById('testdrive-success').classList.remove('hidden');
+      document.getElementById('td-success-msg').textContent =
+        `Hurmatli ${name}, sizning ${model} avtomobilida ${date} sanasida "${dealer}" dilerlik markazida sinov haydovi uchun arizangiz ro‘yxatga olindi. Menejerimiz tez orada bog‘lanadi.`;
+    }
+
+    function openLightbox(imgUrl, caption) {
+      document.getElementById('lightbox-img').src = imgUrl;
+      document.getElementById('lightbox-caption').textContent = caption || 'BMW O‘zbekiston';
+      document.getElementById('lightbox-modal').classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.add('hidden');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('bmw-toast');
+      document.getElementById('bmw-toast-text').textContent = message;
+      toast.classList.remove('hidden');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3200);
+    }
+
+    // =========================================================================
+    // 5. PAGE RENDERERS (HOME, MODELS, ELECTRIC, BMW M, BMW i, DISCOVER, etc.)
+    // =========================================================================
+
+    // --- 5.1 HOME PAGE (BOSH SAHIFA) ---
+    function renderHomePage() {
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="animate-view">
+          <!-- CINEMATIC FULL-WIDTH HERO BANNER -->
+          <section class="relative w-full h-[84vh] min-h-[620px] max-h-[920px] bg-black text-white overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=2000&q=90"
+                 alt="BMW i7 M70 xDrive"
+                 class="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-[12000ms] ease-out" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/25"></div>
+
+            <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 h-full flex flex-col justify-between py-12 sm:py-16 lg:py-20">
+              <div class="inline-flex items-center space-x-2.5 bg-white/10 backdrop-blur-md border border-white/20 px-3.5 py-1.5 w-fit">
+                <span class="w-2 h-2 bg-[#1C69D4]"></span>
+                <span class="text-xs font-bold uppercase tracking-[0.2em]">Yangi Flagman • 100% Elektr</span>
+              </div>
+
+              <div class="max-w-2xl">
+                <p class="text-sm sm:text-base font-bold uppercase tracking-[0.25em] text-[#1C69D4] mb-3">THE i7 M70</p>
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight leading-[1.06] mb-5">
+                  BMW i7 M70 <span class="font-bold">xDrive</span>
+                </h1>
+                <p class="text-base sm:text-xl text-white/85 font-light leading-relaxed mb-8 max-w-xl">
+                  659 ot kuchi, 3.7 soniyada 100 km/soat tezlanish va 560 km yurish zaxirasi. Kelajak hashamati va sof elektr qudrati.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <button onclick="openVehicleDetail('i7')" class="px-8 py-4 bmw-btn-primary text-sm sm:text-base">
+                    Batafsil ma'lumot
+                  </button>
+                  <button onclick="openTestDriveModal('i7')" class="px-8 py-4 bmw-btn-outline-light text-sm sm:text-base">
+                    Sinov haydoviga yozilish
+                  </button>
+                </div>
+              </div>
+
+              <!-- Hero Key Telemetry Bar -->
+              <div class="grid grid-cols-3 gap-4 sm:gap-8 max-w-xl pt-6 border-t border-white/20">
+                <div>
+                  <span class="block text-2xl sm:text-3xl font-bold">659</span>
+                  <span class="text-xs text-white/70 uppercase tracking-wider">Ot kuchi</span>
+                </div>
+                <div>
+                  <span class="block text-2xl sm:text-3xl font-bold">3.7 s</span>
+                  <span class="text-xs text-white/70 uppercase tracking-wider">0–100 km/soat</span>
+                </div>
+                <div>
+                  <span class="block text-2xl sm:text-3xl font-bold">560 km</span>
+                  <span class="text-xs text-white/70 uppercase tracking-wider">Yurish zaxirasi</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- "O'ZINGIZGA MOS BMW NI TOPING" QUICK ACTION STRIP -->
+          <section class="bg-white py-16 sm:py-20 border-b border-[#E6E6E6]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-[0.22em] text-[#666666]">Xarid vositalari</span>
+                <h2 class="text-3xl sm:text-4xl font-light mt-2 tracking-tight">O‘zingizga mos BMW ni toping</h2>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border border-[#E6E6E6] p-8 text-center flex flex-col items-center justify-between hover:border-[#1C1C1C] transition-colors">
+                  <div>
+                    <div class="w-14 h-14 mx-auto mb-5 bg-[#F2F2F2] flex items-center justify-center text-[#1C1C1C]">
+                      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Barcha modellarni ko‘rish</h3>
+                    <p class="text-sm text-[#666666] mb-6 leading-relaxed">Sedanlar, SUV X-seriya, BMW M sportkarlari va 100% elektr BMW i avtomobillarini solishtiring.</p>
+                  </div>
+                  <button onclick="navigateTo('models')" class="w-full py-3 bmw-btn-outline-dark text-sm">Modellarni tanlash</button>
+                </div>
+
+                <div class="border border-[#E6E6E6] p-8 text-center flex flex-col items-center justify-between hover:border-[#1C1C1C] transition-colors">
+                  <div>
+                    <div class="w-14 h-14 mx-auto mb-5 bg-[#F2F2F2] flex items-center justify-center text-[#1C69D4]">
+                      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Sinov haydoviga yozilish</h3>
+                    <p class="text-sm text-[#666666] mb-6 leading-relaxed">Haqiqiy haydash zavqini o‘zingiz his eting. Toshkent va Samarqand dilerlik markazlarida qulay vaqtni band qiling.</p>
+                  </div>
+                  <button onclick="openTestDriveModal()" class="w-full py-3 bmw-btn-primary text-sm">Sinov haydovini band qilish</button>
+                </div>
+
+                <div class="border border-[#E6E6E6] p-8 text-center flex flex-col items-center justify-between hover:border-[#1C1C1C] transition-colors">
+                  <div>
+                    <div class="w-14 h-14 mx-auto mb-5 bg-[#F2F2F2] flex items-center justify-center text-[#1C1C1C]">
+                      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Maxsus takliflar va Lizing</h3>
+                    <p class="text-sm text-[#666666] mb-6 leading-relaxed">BMW Financial Services dasturlari orqali qulay boshlang‘ich to‘lov va yillik imtiyozli shartlar.</p>
+                  </div>
+                  <button onclick="navigateTo('offers')" class="w-full py-3 bmw-btn-outline-dark text-sm">Takliflarni ko‘rish</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- FEATURED FULL-WIDTH ARCHITECTURAL BANNERS -->
+          <!-- Banner 1: BMW M4 Competition -->
+          <section class="relative w-full h-[68vh] min-h-[520px] bg-[#0E0E0E] text-white overflow-hidden group">
+            <img src="https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?auto=format&fit=crop&w=1920&q=85"
+                 alt="BMW M4 Competition Coupé"
+                 class="absolute inset-0 w-full h-full object-cover bmw-img-zoom opacity-90" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent"></div>
+            <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 h-full flex flex-col justify-center">
+              <div class="max-w-xl">
+                <div class="flex items-center space-x-1.5 mb-3">
+                  <span class="w-2 h-5 bg-[#009ADA] -skew-x-12"></span>
+                  <span class="w-2 h-5 bg-[#1B365D] -skew-x-12"></span>
+                  <span class="w-2 h-5 bg-[#E2231A] -skew-x-12 mr-2"></span>
+                  <span class="text-xs font-bold uppercase tracking-[0.22em]">BMW M Motorsport</span>
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-light tracking-tight mb-4">BMW M4 <span class="font-bold">Competition</span></h2>
+                <p class="text-base sm:text-lg text-white/85 font-light mb-8">530 ot kuchi, M xDrive to‘liq uzatma tizimi va poyga trassasi uchun yaratilgan aerodinamika.</p>
+                <div class="flex flex-wrap gap-4">
+                  <button onclick="openVehicleDetail('m4')" class="px-7 py-3.5 bmw-btn-primary text-sm">Modelni o‘rganish</button>
+                  <button onclick="navigateTo('bmwm')" class="px-7 py-3.5 bmw-btn-outline-light text-sm">BMW M olami</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Banner 2: BMW iX xDrive50 -->
+          <section class="relative w-full h-[68vh] min-h-[520px] bg-black text-white overflow-hidden group mt-4">
+            <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1920&q=85"
+                 alt="BMW iX xDrive50"
+                 class="absolute inset-0 w-full h-full object-cover bmw-img-zoom opacity-90" />
+            <div class="absolute inset-0 bg-gradient-to-l from-black/85 via-black/40 to-transparent"></div>
+            <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 h-full flex flex-col justify-center items-start md:items-end text-left md:text-right">
+              <div class="max-w-xl">
+                <span class="text-xs font-bold uppercase tracking-[0.22em] text-[#1C69D4] block mb-3">BMW i • 100% Elektr</span>
+                <h2 class="text-3xl sm:text-5xl font-light tracking-tight mb-4">BMW <span class="font-bold">iX</span> xDrive50</h2>
+                <p class="text-base sm:text-lg text-white/85 font-light mb-8">Bir quvvatlashda 630 km gacha yurish zaxirasi, minimalist hashamat va ilg‘or sun’iy intellekt yordamchilari.</p>
+                <div class="flex flex-wrap md:justify-end gap-4">
+                  <button onclick="openVehicleDetail('ix')" class="px-7 py-3.5 bmw-btn-primary text-sm">Batafsil ma'lumot</button>
+                  <button onclick="navigateTo('electric')" class="px-7 py-3.5 bmw-btn-outline-light text-sm">Quvvatlash kalkulyatori</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Banner 3: BMW X7 M60i -->
+          <section class="relative w-full h-[68vh] min-h-[520px] bg-black text-white overflow-hidden group mt-4">
+            <img src="https://images.unsplash.com/photo-1556189250-72ba954cfc2b?auto=format&fit=crop&w=1920&q=85"
+                 alt="BMW X7 M60i xDrive"
+                 class="absolute inset-0 w-full h-full object-cover bmw-img-zoom opacity-90" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent"></div>
+            <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 h-full flex flex-col justify-center">
+              <div class="max-w-xl">
+                <span class="text-xs font-bold uppercase tracking-[0.22em] text-white/80 block mb-3">THE X7</span>
+                <h2 class="text-3xl sm:text-5xl font-light tracking-tight mb-4">BMW X7 <span class="font-bold">M60i xDrive</span></h2>
+                <p class="text-base sm:text-lg text-white/85 font-light mb-8">7 o‘rindiqli kenglik, 530 ot kuchiga ega V8 dvigatel va har bir detalda mukammal maqom.</p>
+                <div class="flex flex-wrap gap-4">
+                  <button onclick="openVehicleDetail('x7')" class="px-7 py-3.5 bmw-btn-primary text-sm">Batafsil ko‘rish</button>
+                  <button onclick="openTestDriveModal('x7')" class="px-7 py-3.5 bmw-btn-outline-light text-sm">Sinov haydovi</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- MODEL SHOWCASE CAROUSEL / GRID -->
+          <section class="py-20 bg-[#F2F2F2]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-[0.22em] text-[#1C69D4]">Modellar qatori</span>
+                  <h2 class="text-3xl sm:text-4xl font-light mt-2 tracking-tight">O‘zbekistonda mavjud flagman modellar</h2>
+                </div>
+                <button onclick="navigateTo('models')" class="text-sm font-bold text-[#1C1C1C] hover:text-[#1C69D4] flex items-center">
+                  <span>Barcha modellarni ko‘rish (${BMW_VEHICLES.length})</span>
+                  <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                ${BMW_VEHICLES.slice(0, 4).map(car => renderVehicleCardHTML(car)).join('')}
+              </div>
+            </div>
+          </section>
+
+          <!-- BMW OLAMI (EDITORIAL & INNOVATION) -->
+          <section class="py-20 bg-white">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-[0.22em] text-[#666666]">BMW Olami</span>
+                  <h2 class="text-3xl sm:text-4xl font-light mt-2 tracking-tight">Texnologiyalar, dizayn va kelajak</h2>
+                </div>
+                <button onclick="navigateTo('discover')" class="px-6 py-3 bmw-btn-outline-dark text-sm">Barcha maqolalar</button>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                ${DISCOVER_ARTICLES.map(art => `
+                  <article onclick="navigateTo('discover')" class="group cursor-pointer border border-[#E6E6E6] hover:border-[#1C1C1C] transition-all flex flex-col justify-between">
+                    <div>
+                      <div class="aspect-[16/10] overflow-hidden bg-[#F2F2F2]">
+                        <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover bmw-img-zoom" />
+                      </div>
+                      <div class="p-6">
+                        <span class="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1C69D4]">${art.tag}</span>
+                        <h3 class="text-xl font-bold mt-2 mb-3 group-hover:text-[#1C69D4] transition-colors leading-snug">${art.title}</h3>
+                        <p class="text-sm text-[#666666] leading-relaxed">${art.summary}</p>
+                      </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 flex items-center justify-between text-xs font-bold">
+                      <span>Batafsil o‘qish</span>
+                      <span class="text-[#1C69D4] group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                  </article>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // Reusable Vehicle Card HTML
+    function renderVehicleCardHTML(car) {
+      const isSaved = appState.savedGarage.includes(car.id);
+      return `
+        <div class="bg-white border border-[#E6E6E6] hover:border-[#1C1C1C] transition-all flex flex-col justify-between group">
+          <div>
+            <div class="relative aspect-[16/10] overflow-hidden bg-[#F2F2F2] cursor-pointer" onclick="openVehicleDetail('${car.id}')">
+              <img src="${car.cardImage}" alt="${car.name}" class="w-full h-full object-cover bmw-img-zoom" />
+              <div class="absolute top-3 left-3 flex gap-1.5">
+                <span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${car.isElectric ? 'bg-[#1C69D4] text-white' : 'bg-black/85 text-white'}">
+                  ${car.fuelType}
+                </span>
+                ${car.isM ? '<span class="px-2 py-1 text-[10px] font-extrabold bg-white text-[#1C1C1C]">M</span>' : ''}
+              </div>
+              <button onclick="event.stopPropagation(); toggleSaveVehicle('${car.id}')"
+                      title="${isSaved ? 'Garajdan o‘chirish' : 'Garajga saqlash'}"
+                      class="absolute top-3 right-3 w-8 h-8 bg-white/90 hover:bg-white flex items-center justify-center text-[#1C1C1C] transition-colors">
+                <svg class="w-4 h-4 ${isSaved ? 'fill-[#1C69D4] text-[#1C69D4]' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="p-6">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-[#666666]">${car.bodyType}</span>
+              <h3 onclick="openVehicleDetail('${car.id}')" class="text-xl font-bold mt-1 cursor-pointer group-hover:text-[#1C69D4] transition-colors">${car.name}</h3>
+              <p class="text-sm font-semibold text-[#1C1C1C] mt-2">$${car.priceUSD.toLocaleString()} <span class="text-xs font-normal text-[#666666]">dan boshlab</span></p>
+
+              <div class="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-[#E6E6E6] text-xs">
+                <div>
+                  <span class="text-[#666666] block">Quvvat</span>
+                  <span class="font-bold text-[#1C1C1C]">${car.powerHP}</span>
+                </div>
+                <div>
+                  <span class="text-[#666666] block">0–100 km/soat</span>
+                  <span class="font-bold text-[#1C1C1C]">${car.zeroToHundred}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-6 pb-6 space-y-2">
+            <button onclick="openVehicleDetail('${car.id}')" class="w-full py-3 bmw-btn-primary text-xs uppercase tracking-wider">
+              Batafsil ko‘rish
+            </button>
+            <button onclick="openTestDriveModal('${car.id}')" class="w-full py-2.5 bmw-btn-outline-dark text-xs">
+              Sinov haydovi
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- 5.2 ALL MODELS HUB (MODELLAR) ---
+    function renderModelsPage() {
+      const bodyTypes = ['Barchasi', 'Sedan', 'SUV / X', 'Kupe', 'Elektromobil', 'BMW M'];
+      const fuelTypes = ['Barchasi', 'Elektr', 'Benzin', 'Gibrid'];
+
+      const filtered = BMW_VEHICLES.filter(car => {
+        let matchBody = true;
+        if (appState.modelFilterBody === 'Elektromobil') matchBody = car.isElectric;
+        else if (appState.modelFilterBody === 'BMW M') matchBody = car.isM;
+        else if (appState.modelFilterBody !== 'Barchasi') matchBody = car.bodyType === appState.modelFilterBody;
+
+        let matchFuel = true;
+        if (appState.modelFilterFuel !== 'Barchasi') matchFuel = car.fuelType === appState.modelFilterFuel;
+
+        return matchBody && matchFuel;
+      });
+
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="animate-view">
+          <section class="bg-[#1C1C1C] text-white py-16 sm:py-20">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <span class="text-xs font-bold uppercase tracking-[0.22em] text-[#1C69D4]">BMW Modellar Qatori</span>
+              <h1 class="text-4xl sm:text-5xl font-light mt-2 tracking-tight">Barcha BMW avtomobillari</h1>
+              <p class="text-white/75 mt-3 max-w-2xl text-base font-light">O‘zingizning haydash uslubingizga mos keladigan BMW modelini kuzov turi va dvigatel texnologiyasi bo‘yicha tanlang.</p>
+            </div>
+          </section>
+
+          <!-- Sticky Filter Bar -->
+          <section class="bg-white border-b border-[#E6E6E6] sticky top-[76px] lg:top-[84px] z-30">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 py-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar pb-1 lg:pb-0">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#666666] mr-2">Kuzov:</span>
+                ${bodyTypes.map(bt => `
+                  <button onclick="appState.modelFilterBody='${bt}'; renderModelsPage()"
+                          class="px-4 py-2 text-xs font-bold whitespace-nowrap border transition-colors ${appState.modelFilterBody === bt ? 'bg-[#1C1C1C] text-white border-[#1C1C1C]' : 'bg-white text-[#1C1C1C] border-[#E6E6E6] hover:border-[#1C1C1C]'}">
+                    ${bt}
+                  </button>
+                `).join('')}
+              </div>
+
+              <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#666666] mr-2">Dvigatel:</span>
+                ${fuelTypes.map(ft => `
+                  <button onclick="appState.modelFilterFuel='${ft}'; renderModelsPage()"
+                          class="px-3.5 py-2 text-xs font-bold whitespace-nowrap border transition-colors ${appState.modelFilterFuel === ft ? 'bg-[#1C69D4] text-white border-[#1C69D4]' : 'bg-white text-[#1C1C1C] border-[#E6E6E6] hover:border-[#1C69D4]'}">
+                    ${ft}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+
+          <!-- Models Grid -->
+          <section class="py-14 bg-[#F2F2F2] min-h-[60vh]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <div class="mb-6 flex items-center justify-between">
+                <p class="text-sm text-[#666666]"><strong class="text-[#1C1C1C]">${filtered.length}</strong> ta model topildi</p>
+                ${(appState.modelFilterBody !== 'Barchasi' || appState.modelFilterFuel !== 'Barchasi')
+                  ? `<button onclick="appState.modelFilterBody='Barchasi'; appState.modelFilterFuel='Barchasi'; renderModelsPage()" class="text-xs font-bold text-[#1C69D4] hover:underline">Filtrlarni tozalash</button>`
+                  : ''}
+              </div>
+
+              ${filtered.length === 0
+                ? `<div class="bg-white p-14 text-center border border-[#E6E6E6]">
+                    <h3 class="text-xl font-bold mb-2">Tanlangan parametrlar bo‘yicha model topilmadi</h3>
+                    <p class="text-sm text-[#666666] mb-6">Boshqa kuzov yoki dvigatel turini tanlab ko‘ring.</p>
+                    <button onclick="appState.modelFilterBody='Barchasi'; appState.modelFilterFuel='Barchasi'; renderModelsPage()" class="px-6 py-3 bmw-btn-primary text-sm">Barcha modellarni ko‘rsatish</button>
+                   </div>`
+                : `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    ${filtered.map(car => renderVehicleCardHTML(car)).join('')}
+                   </div>`
+              }
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // --- 5.3 ELECTRIC VEHICLES & CHARGING CALCULATOR (ELEKTROMOBILLAR) ---
+    function renderElectricPage() {
+      const evCars = BMW_VEHICLES.filter(v => v.isElectric);
+      const weeklyKm = appState.dailyKm * 7;
+      const chargesPerWeek = Math.max(1, (weeklyKm / 540).toFixed(1));
+      const monthlyFuelSavingsUSD = Math.round((appState.dailyKm * 30 * 0.095));
+
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="animate-view">
+          <section class="relative h-[68vh] min-h-[500px] bg-black text-white overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1920&q=85" alt="BMW Elektromobillar" class="absolute inset-0 w-full h-full object-cover opacity-80" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent"></div>
+            <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 h-full flex flex-col justify-center">
+              <div class="max-w-2xl">
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-[#1C69D4] block mb-3">BMW Elektr Mobillik</span>
+                <h1 class="text-4xl sm:text-6xl font-light tracking-tight leading-tight mb-5">100% Elektr. <span class="font-bold">100% Haydash Zavqi.</span></h1>
+                <p class="text-base sm:text-lg text-white/85 font-light mb-8">Nol chiqindilar, lahzali aylanish momenti va 630 km gacha yurish zaxirasi bilan kelajak bugun boshlanadi.</p>
+                <button onclick="document.getElementById('ev-calculator').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 bmw-btn-primary text-sm">Zaryadlash va tejamkorlik kalkulyatori</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Interactive Charging & Range Calculator -->
+          <section id="ev-calculator" class="py-20 bg-white border-b border-[#E6E6E6]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6">
+                  <span class="text-xs font-bold uppercase tracking-[0.22em] text-[#1C69D4]">Interaktiv Vosita</span>
+                  <h2 class="text-3xl sm:text-4xl font-light mt-2 mb-4">Zaryadlash va masofa kalkulyatori</h2>
+                  <p class="text-sm sm:text-base text-[#666666] mb-8 leading-relaxed">Kunlik o‘rtacha bosib o‘tadigan masofangizni belgilang va BMW elektromobili sizga haftasiga necha marta quvvatlash kerakligini hamda yonilg‘idan qancha mablag‘ tejashingizni hisoblab beradi.</p>
+
+                  <div class="bg-[#F2F2F2] p-6 sm:p-8 border border-[#E6E6E6]">
+                    <div class="flex justify-between items-center mb-3">
+                      <label class="text-sm font-bold">Kunlik o‘rtacha masofa:</label>
+                      <span class="text-2xl font-extrabold text-[#1C69D4]">${appState.dailyKm} km / kun</span>
+                    </div>
+                    <input type="range" min="15" max="250" step="5" value="${appState.dailyKm}"
+                           oninput="appState.dailyKm = Number(this.value); renderElectricPage()"
+                           class="bmw-slider my-4" />
+                    <div class="flex justify-between text-xs text-[#666666] font-medium">
+                      <span>15 km (Shahar ichida)</span>
+                      <span>120 km (Faol haydash)</span>
+                      <span>250 km (Shaharlararo)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div class="border border-[#E6E6E6] p-6 bg-white">
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#666666]">Haftalik masofa</span>
+                    <p class="text-3xl font-extrabold mt-2 text-[#1C1C1C]">${weeklyKm} km</p>
+                    <p class="text-xs text-[#666666] mt-2">BMW iX (630 km) bir quvvatlashda bemalol qoplaydi</p>
+                  </div>
+                  <div class="border border-[#1C69D4] p-6 bg-[#1C69D4] text-white">
+                    <span class="text-xs font-bold uppercase tracking-wider text-white/80">Haftalik quvvatlash</span>
+                    <p class="text-3xl font-extrabold mt-2">${chargesPerWeek} marta</p>
+                    <p class="text-xs text-white/85 mt-2">BMW Wallbox 22 kVt orqali tunda to‘liq quvvatlanadi</p>
+                  </div>
+                  <div class="border border-[#E6E6E6] p-6 bg-white">
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#666666]">Oylik tejamkorlik</span>
+                    <p class="text-3xl font-extrabold mt-2 text-emerald-600">~$${monthlyFuelSavingsUSD}</p>
+                    <p class="text-xs text-[#666666] mt-2">Benzin xarajatlariga nisbatan o‘rtacha foyda</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- EV Models Grid -->
+          <section class="py-16 bg-[#F2F2F2]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <h2 class="text-3xl font-light mb-10">100% Elektr BMW modellari</h2>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                ${evCars.map(car => renderVehicleCardHTML(car)).join('')}
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // --- 5.4 BMW M HIGH PERFORMANCE PAGE ---
+    function renderBmwMPage() {
+      const mCars = BMW_VEHICLES.filter(v => v.isM);
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="animate-view bg-[#0E0E0E] text-white">
+          <section class="relative h-[74vh] min-h-[540px] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?auto=format&fit=crop&w=1920&q=90" alt="BMW M" class="absolute inset-0 w-full h-full object-cover opacity-75" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0E0E0E] via-black/45 to-black/30"></div>
+            <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 h-full flex flex-col justify-end pb-16">
+              <div class="flex items-center space-x-2 mb-4">
+                <span class="w-3 h-7 bg-[#009ADA] -skew-x-12"></span>
+                <span class="w-3 h-7 bg-[#1B365D] -skew-x-12"></span>
+                <span class="w-3 h-7 bg-[#E2231A] -skew-x-12 mr-2"></span>
+                <span class="text-sm font-extrabold uppercase tracking-[0.28em]">DUNYODAGI ENG KUCHLI HARF</span>
+              </div>
+              <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4">BMW M AUTOMOBILLARI</h1>
+              <p class="text-base sm:text-xl text-white/80 max-w-2xl font-light">Poyga trassasi DNKsi, murosasiz quvvat va har bir millimetrda muhandislik mukammalligi.</p>
+            </div>
+          </section>
+
+          <section class="py-16 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              ${mCars.map(car => `
+                <div class="bg-[#161616] border border-white/15 hover:border-[#E2231A] transition-all flex flex-col justify-between group">
+                  <div>
+                    <div class="aspect-[16/10] overflow-hidden cursor-pointer" onclick="openVehicleDetail('${car.id}')">
+                      <img src="${car.cardImage}" alt="${car.name}" class="w-full h-full object-cover bmw-img-zoom" />
+                    </div>
+                    <div class="p-6">
+                      <span class="text-[11px] font-bold uppercase tracking-widest text-[#009ADA]">${car.badge}</span>
+                      <h3 onclick="openVehicleDetail('${car.id}')" class="text-2xl font-bold mt-1 cursor-pointer group-hover:text-[#009ADA]">${car.name}</h3>
+                      <p class="text-sm text-white/65 mt-2">${car.tagline}</p>
+
+                      <div class="grid grid-cols-3 gap-3 mt-6 pt-4 border-t border-white/10 text-xs">
+                        <div>
+                          <span class="text-white/50 block">Quvvat</span>
+                          <span class="font-bold text-white">${car.powerHP}</span>
+                        </div>
+                        <div>
+                          <span class="text-white/50 block">0–100</span>
+                          <span class="font-bold text-white">${car.zeroToHundred}</span>
+                        </div>
+                        <div>
+                          <span class="text-white/50 block">Narxi</span>
+                          <span class="font-bold text-white">$${car.priceUSD.toLocaleString()}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="px-6 pb-6 flex gap-3">
+                    <button onclick="openVehicleDetail('${car.id}')" class="flex-1 py-3 bmw-btn-primary text-xs uppercase tracking-wider">Batafsil</button>
+                    <button onclick="openTestDriveModal('${car.id}')" class="flex-1 py-3 bmw-btn-outline-light text-xs">Sinov haydovi</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // --- 5.5 BMW i BRAND PAGE ---
+    function renderBmwIPage() {
+      const iCars = BMW_VEHICLES.filter(v => v.isElectric);
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="animate-view">
+          <section class="bg-[#1C1C1C] text-white py-20">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-[#1C69D4]">BMW i — Born Electric</span>
+                <h1 class="text-4xl sm:text-6xl font-light mt-3 mb-6 leading-tight">Barqaror hashamat va <span class="font-bold">aqlli texnologiyalar</span></h1>
+                <p class="text-white/80 text-base leading-relaxed mb-8">BMW i brendi avtomobilsozlikda yangi standartlarni belgilaydi: qayta tiklanuvchi energiya manbalarida ishlab chiqarilgan batareyalar, kobalt va nodir metallarsiz elektr motorlar hamda raqamli ekotizim.</p>
+                <div class="flex flex-wrap gap-4">
+                  <button onclick="navigateTo('electric')" class="px-7 py-3.5 bmw-btn-primary text-sm">Quvvatlash kalkulyatori</button>
+                  <button onclick="openVehicleDetail('i7')" class="px-7 py-3.5 bmw-btn-outline-light text-sm">Flagman BMW i7</button>
+                </div>
+              </div>
+              <div class="aspect-[16/10] overflow-hidden border border-white/15">
+                <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=85" alt="BMW i4" class="w-full h-full object-cover" />
+              </div>
+            </div>
+          </section>
+
+          <section class="py-16 bg-white">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <h2 class="text-3xl font-light mb-10">BMW i modellar liniyasi</h2>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                ${iCars.map(car => renderVehicleCardHTML(car)).join('')}
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // --- 5.6 DEDICATED VEHICLE DETAILS PAGE (AVTOMOBIL TAFSILOTLARI) ---
+    function renderVehicleDetail(vehicleId) {
+      const car = BMW_VEHICLES.find(v => v.id === vehicleId) || BMW_VEHICLES[0];
+      const currentColor = EXTERIOR_COLORS[appState.selectedColorIndex] || EXTERIOR_COLORS[0];
+      const currentTrim = car.trims[appState.selectedTrimIndex] || car.trims[0];
+      const isSaved = appState.savedGarage.includes(car.id);
+
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="animate-view">
+          <!-- Breadcrumb & Top Model Bar -->
+          <div class="bg-[#F2F2F2] border-b border-[#E6E6E6]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 py-3.5 flex flex-wrap items-center justify-between gap-4 text-xs">
+              <div class="flex items-center space-x-2 text-[#666666]">
+                <button onclick="navigateTo('home')" class="hover:text-[#1C1C1C]">Bosh sahifa</button>
+                <span>/</span>
+                <button onclick="navigateTo('models')" class="hover:text-[#1C1C1C]">Modellar</button>
+                <span>/</span>
+                <span class="font-bold text-[#1C1C1C]">${car.name}</span>
+              </div>
+              <div class="flex items-center space-x-4">
+                <button onclick="toggleSaveVehicle('${car.id}')" class="font-bold flex items-center space-x-1.5 ${isSaved ? 'text-[#1C69D4]' : 'text-[#1C1C1C] hover:text-[#1C69D4]'}">
+                  <span>${isSaved ? '★ Garajda saqlangan' : '☆ Garajga saqlash'}</span>
+                </button>
+                <button onclick="openTestDriveModal('${car.id}')" class="px-4 py-2 bmw-btn-primary text-xs">Sinov haydovi</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vehicle Hero & Interactive Exterior Color Configurator -->
+          <section class="relative bg-[#111111] text-white overflow-hidden">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div class="lg:col-span-5 space-y-5">
+                <span class="inline-block px-3 py-1 bg-[#1C69D4] text-[11px] font-bold uppercase tracking-widest">${car.badge}</span>
+                <h1 class="text-3xl sm:text-5xl font-light tracking-tight leading-tight">${car.name}</h1>
+                <p class="text-white/80 text-base leading-relaxed font-light">${car.description}</p>
+
+                <!-- Color Switcher -->
+                <div class="pt-4 border-t border-white/15">
+                  <p class="text-xs uppercase tracking-wider text-white/60 mb-3">Tashqi rang: <strong class="text-white">${currentColor.name}</strong></p>
+                  <div class="flex items-center space-x-3">
+                    ${EXTERIOR_COLORS.map((col, idx) => `
+                      <button onclick="appState.selectedColorIndex=${idx}; renderVehicleDetail('${car.id}')"
+                              title="${col.name}"
+                              style="background-color: ${col.hex};"
+                              class="w-9 h-9 rounded-[2px] transition-transform ${appState.selectedColorIndex === idx ? 'ring-2 ring-[#1C69D4] ring-offset-2 ring-offset-[#111111] scale-110' : 'opacity-80 hover:opacity-100'}">
+                      </button>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <div class="pt-4 flex flex-wrap gap-3">
+                  <button onclick="openTestDriveModal('${car.id}')" class="px-7 py-3.5 bmw-btn-primary text-sm">Sinov haydoviga yozilish</button>
+                  <button onclick="document.getElementById('trims-section').scrollIntoView({behavior:'smooth'})" class="px-7 py-3.5 bmw-btn-outline-light text-sm">Komplektatsiyalar</button>
+                </div>
+              </div>
+
+              <div class="lg:col-span-7">
+                <div class="relative aspect-[16/10] overflow-hidden border border-white/15 bg-black">
+                  <img src="${car.heroImage}"
+                       alt="${car.name}"
+                       style="filter: ${currentColor.filter};"
+                       class="w-full h-full object-cover transition-all duration-500" />
+                  <div class="absolute bottom-4 right-4 bg-black/75 backdrop-blur-md px-4 py-2 text-xs border border-white/15">
+                    Boshlang‘ich narx: <strong class="text-sm text-white">$${car.priceUSD.toLocaleString()}</strong> (${car.priceUZS})
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Key Performance Metrics Bar -->
+          <section class="bg-white border-b border-[#E6E6E6]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 py-10 grid grid-cols-2 lg:grid-cols-4 gap-8">
+              <div class="border-l-2 border-[#1C69D4] pl-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#666666]">Maksimal quvvat</span>
+                <p class="text-2xl sm:text-3xl font-extrabold mt-1">${car.powerHP}</p>
+                <span class="text-xs text-[#666666]">${car.powerKW}</span>
+              </div>
+              <div class="border-l-2 border-[#1C1C1C] pl-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#666666]">Tezlanish (0–100 km/soat)</span>
+                <p class="text-2xl sm:text-3xl font-extrabold mt-1">${car.zeroToHundred}</p>
+                <span class="text-xs text-[#666666]">${car.drive}</span>
+              </div>
+              <div class="border-l-2 border-[#1C1C1C] pl-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#666666]">Maksimal tezlik</span>
+                <p class="text-2xl sm:text-3xl font-extrabold mt-1">${car.topSpeed}</p>
+                <span class="text-xs text-[#666666]">Elektron cheklangan</span>
+              </div>
+              <div class="border-l-2 border-[#1C69D4] pl-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#666666]">${car.isElectric ? 'Yurish zaxirasi' : 'Yoqilg‘i sarfi'}</span>
+                <p class="text-2xl sm:text-3xl font-extrabold mt-1">${car.rangeOrConsumption}</p>
+                <span class="text-xs text-[#666666]">WLTP standarti bo‘yicha</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Available Trims & Versions Selector -->
+          <section id="trims-section" class="py-16 bg-[#F2F2F2] border-b border-[#E6E6E6]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <span class="text-xs font-bold uppercase tracking-[0.22em] text-[#1C69D4]">Modifikatsiyalar</span>
+              <h2 class="text-3xl font-light mt-1 mb-8">Mavjud komplektatsiyalar va narxlar</h2>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                ${car.trims.map((trim, idx) => `
+                  <div onclick="appState.selectedTrimIndex=${idx}; renderVehicleDetail('${car.id}')"
+                       class="cursor-pointer bg-white p-6 border-2 transition-all ${appState.selectedTrimIndex === idx ? 'border-[#1C69D4] shadow-lg' : 'border-[#E6E6E6] hover:border-[#1C1C1C]'}">
+                    <div class="flex items-center justify-between mb-3">
+                      <span class="text-xs font-bold uppercase tracking-wider ${appState.selectedTrimIndex === idx ? 'text-[#1C69D4]' : 'text-[#666666]'}">
+                        ${appState.selectedTrimIndex === idx ? '✓ Tanlangan versiya' : 'Versiya ' + (idx + 1)}
+                      </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">${trim.name}</h3>
+                    <div class="space-y-2 text-sm border-t border-[#E6E6E6] pt-4">
+                      <div class="flex justify-between"><span class="text-[#666666]">Quvvat:</span><strong>${trim.power}</strong></div>
+                      <div class="flex justify-between"><span class="text-[#666666]">0–100 km/soat:</span><strong>${trim.accel}</strong></div>
+                      <div class="flex justify-between pt-2 text-base"><span class="text-[#666666]">Narxi:</span><strong class="text-[#1C69D4]">${trim.price}</strong></div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+
+          <!-- Exterior & Interior Gallery -->
+          <section class="py-16 bg-white border-b border-[#E6E6E6]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <h2 class="text-3xl font-light mb-8">Eksteryer va Interyer galereyasi</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${[...car.galleryExterior, ...car.galleryInterior].map((img, i) => `
+                  <div onclick="openLightbox('${img}', '${car.name} — Galereya #${i + 1}')" class="aspect-[16/10] overflow-hidden bg-[#F2F2F2] border border-[#E6E6E6] cursor-zoom-in group relative">
+                    <img src="${img}" alt="${car.name}" class="w-full h-full object-cover bmw-img-zoom" />
+                    <span class="absolute bottom-3 left-3 bg-black/75 text-white text-[11px] px-2.5 py-1">
+                      ${i < car.galleryExterior.length ? 'Eksteryer' : 'Interyer'} • Kattalashtirish
+                    </span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+
+          <!-- Technical Specifications Table -->
+          <section class="py-16 bg-[#F2F2F2]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <h2 class="text-3xl font-light mb-8">Texnik xususiyatlar (${currentTrim.name})</h2>
+              <div class="bg-white border border-[#E6E6E6] divide-y divide-[#E6E6E6]">
+                <div class="p-5 sm:px-8 flex flex-col sm:flex-row sm:justify-between gap-2">
+                  <span class="text-sm font-bold text-[#666666]">Dvigatel / Kuch agregati</span>
+                  <span class="text-sm font-semibold">${car.specs.engine}</span>
+                </div>
+                <div class="p-5 sm:px-8 flex flex-col sm:flex-row sm:justify-between gap-2">
+                  <span class="text-sm font-bold text-[#666666]">Transmissiya / Batareya</span>
+                  <span class="text-sm font-semibold">${car.specs.battery}</span>
+                </div>
+                <div class="p-5 sm:px-8 flex flex-col sm:flex-row sm:justify-between gap-2">
+                  <span class="text-sm font-bold text-[#666666]">Shassi va Texnologiyalar</span>
+                  <span class="text-sm font-semibold">${car.specs.charging}</span>
+                </div>
+                <div class="p-5 sm:px-8 flex flex-col sm:flex-row sm:justify-between gap-2">
+                  <span class="text-sm font-bold text-[#666666]">Kuzov o‘lchamlari</span>
+                  <span class="text-sm font-semibold">${car.specs.dimensions}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // --- 5.7 DISCOVER BMW PAGE (BMW OLAMI) ---
+    function renderDiscoverPage() {
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="animate-view">
+          <section class="bg-[#1C1C1C] text-white py-20">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <span class="text-xs font-bold uppercase tracking-[0.25em] text-[#1C69D4]">BMW Olami va Tarixi</span>
+              <h1 class="text-4xl sm:text-6xl font-light mt-3 mb-5">1916-yildan beri kelajakni yaratamiz</h1>
+              <p class="text-white/80 max-w-2xl text-base leading-relaxed">Bayerische Motoren Werke AG — muhandislik aniqligi, sport xarakteri va ilg‘or raqamli innovatsiyalarning global ramzi.</p>
+            </div>
+          </section>
+
+          <section class="py-16 bg-white">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 space-y-12">
+              ${DISCOVER_ARTICLES.map((art, index) => `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border border-[#E6E6E6] p-6 sm:p-8">
+                  <div class="lg:col-span-5 ${index % 2 === 1 ? 'lg:order-2' : ''}">
+                    <img src="${art.image}" alt="${art.title}" class="w-full aspect-[16/10] object-cover" />
+                  </div>
+                  <div class="lg:col-span-7 space-y-4">
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#1C69D4]">${art.tag} • ${art.date}</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold">${art.title}</h2>
+                    <p class="text-[#666666] leading-relaxed">${art.content}</p>
+                    <button onclick="navigateTo('models')" class="px-6 py-3 bmw-btn-outline-dark text-xs uppercase tracking-wider">Tegishli modellarni ko‘rish</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // --- 5.8 OFFERS & PROMOTIONS PAGE (TAKLIFLAR) ---
+    function renderOffersPage() {
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="animate-view">
+          <section class="bg-[#1C1C1C] text-white py-20">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <span class="text-xs font-bold uppercase tracking-[0.25em] text-[#1C69D4]">BMW Financial Services</span>
+              <h1 class="text-4xl sm:text-5xl font-light mt-3 mb-4">Maxsus takliflar va lizing dasturlari</h1>
+              <p class="text-white/80 max-w-2xl">O‘zbekiston bozoridagi rasmiy mijozlar uchun moslashuvchan moliyaviy yechimlar va Trade-In dasturi.</p>
+            </div>
+          </section>
+
+          <section class="py-16 bg-[#F2F2F2]">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="bg-white border border-[#E6E6E6] p-8 flex flex-col justify-between">
+                <div>
+                  <span class="px-3 py-1 bg-[#1C69D4] text-white text-[11px] font-bold uppercase">0% Boshlang‘ich komissiya</span>
+                  <h3 class="text-2xl font-bold mt-4 mb-3">BMW Select Lizing</h3>
+                  <p class="text-sm text-[#666666] leading-relaxed mb-6">30% boshlang‘ich to‘lov bilan 36 oygacha qulay oylik to‘lovlar. Shartnoma muddati tugagach avtomobilni yangi BMW modeliga almashtirish imkoniyati.</p>
+                </div>
+                <button onclick="openTestDriveModal()" class="w-full py-3.5 bmw-btn-primary text-sm">Hisob-kitob so‘rash</button>
+              </div>
+
+              <div class="bg-white border border-[#E6E6E6] p-8 flex flex-col justify-between">
+                <div>
+                  <span class="px-3 py-1 bg-[#1C1C1C] text-white text-[11px] font-bold uppercase">Elektromobillar uchun</span>
+                  <h3 class="text-2xl font-bold mt-4 mb-3">BMW i Wallbox Sovg‘aga</h3>
+                  <p class="text-sm text-[#666666] leading-relaxed mb-6">Har bir yangi BMW i4, i5, i7 yoki iX xaridi bilan uy uchun 22 kVt quvvatli original BMW Wallbox stansiyasi va bepul o‘rnatish xizmati.</p>
+                </div>
+                <button onclick="navigateTo('electric')" class="w-full py-3.5 bmw-btn-outline-dark text-sm">BMW i modellarini ko‘rish</button>
+              </div>
+
+              <div class="bg-white border border-[#E6E6E6] p-8 flex flex-col justify-between">
+                <div>
+                  <span class="px-3 py-1 bg-[#1C69D4] text-white text-[11px] font-bold uppercase">Trade-In Dasturi</span>
+                  <h3 class="text-2xl font-bold mt-4 mb-3">Avtomobilingizni yangisiga almashtiring</h3>
+                  <p class="text-sm text-[#666666] leading-relaxed mb-6">Mavjud avtomobilingizni rasmiy dilerlik markazimizda bozor narxida baholating va yangi BMW xaridi uchun qo‘shimcha $3,000 gacha chegirmaga ega bo‘ling.</p>
+                </div>
+                <button onclick="navigateTo('contact')" class="w-full py-3.5 bmw-btn-outline-dark text-sm">Diler bilan bog‘lanish</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // --- 5.9 GALLERY & VIDEOS PAGE (GALEREYA VA VIDEOLAR) ---
+    function renderMediaPage() {
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="animate-view">
+          <section class="bg-[#0E0E0E] text-white py-16">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <span class="text-xs font-bold uppercase tracking-[0.25em] text-[#1C69D4]">BMW Media Markazi</span>
+              <h1 class="text-4xl sm:text-5xl font-light mt-2 mb-4">Kinematik videolar va HD galereya</h1>
+              <p class="text-white/75 max-w-2xl">BMW dizayn san’ati va dinamikasini yuqori aniqlikdagi foto va video lavhalarda tomosha qiling.</p>
+            </div>
+          </section>
+
+          <!-- Interactive Automotive Cinema Showcase -->
+          <section class="py-14 bg-[#141414] text-white border-b border-white/10">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <div class="relative aspect-video max-h-[640px] w-full bg-black border border-white/15 overflow-hidden">
+                <video id="bmw-showcase-video"
+                       class="w-full h-full object-cover"
+                       poster="https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?auto=format&fit=crop&w=1600&q=85"
+                       autoplay muted loop playsinline>
+                  <source src="https://assets.mixkit.co/videos/preview/mixkit-sports-car-driving-on-a-road-surrounded-by-trees-34565-large.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+                <div class="absolute bottom-4 left-4 right-4 sm:bottom-8 sm:left-8 sm:right-8 flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#1C69D4]">Rasmiy film</span>
+                    <h3 class="text-xl sm:text-2xl font-bold">BMW M & BMW i: Harakatdagi mukammallik</h3>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <button onclick="toggleShowcaseVideo()" id="video-play-btn" class="px-5 py-2.5 bg-white text-black text-xs font-bold uppercase tracking-wider hover:bg-[#1C69D4] hover:text-white transition-colors">
+                      Pauza
+                    </button>
+                    <button onclick="toggleVideoMute()" id="video-mute-btn" class="px-4 py-2.5 bg-black/70 border border-white/30 text-white text-xs font-bold uppercase">
+                      Ovozni yoqish
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- High-Resolution Photo Grid -->
+          <section class="py-16 bg-white">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <h2 class="text-3xl font-light mb-8">Yuqori aniqlikdagi fotosuratlar</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${BMW_VEHICLES.map(car => `
+                  <div onclick="openLightbox('${car.heroImage}', '${car.name}')" class="group cursor-zoom-in border border-[#E6E6E6] overflow-hidden relative aspect-[16/10]">
+                    <img src="${car.heroImage}" alt="${car.name}" class="w-full h-full object-cover bmw-img-zoom" />
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-end p-5">
+                      <span class="text-white font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity">${car.name} — Kattalashtirish</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    function toggleShowcaseVideo() {
+      const video = document.getElementById('bmw-showcase-video');
+      const btn = document.getElementById('video-play-btn');
+      if (!video) return;
+      if (video.paused) {
+        video.play();
+        btn.textContent = 'Pauza';
+      } else {
+        video.pause();
+        btn.textContent = 'Ijro etish';
+      }
+    }
+
+    function toggleVideoMute() {
+      const video = document.getElementById('bmw-showcase-video');
+      const btn = document.getElementById('video-mute-btn');
+      if (!video) return;
+      video.muted = !video.muted;
+      btn.textContent = video.muted ? 'Ovozni yoqish' : 'Ovozni o‘chirish';
+    }
+
+    // --- 5.10 CONTACT & DEALER LOCATOR PAGE (ALOQA VA DILERLAR) ---
+    function renderContactPage() {
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="animate-view">
+          <section class="bg-[#1C1C1C] text-white py-16 sm:py-20">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+              <span class="text-xs font-bold uppercase tracking-[0.25em] text-[#1C69D4]">Rasmiy Dilerlik Tarmog‘i</span>
+              <h1 class="text-4xl sm:text-5xl font-light mt-2 mb-4">Aloqa va Dilerlik markazlari</h1>
+              <p class="text-white/75 max-w-2xl">O‘zbekiston bo‘ylab rasmiy BMW avtosalonlari va sertifikatlangan servis markazlari xizmatingizda.</p>
+            </div>
+          </section>
+
+          <section class="py-16 bg-white">
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
+              <!-- Dealer Cards -->
+              <div class="lg:col-span-6 space-y-6">
+                <h2 class="text-2xl font-bold mb-4">Rasmiy avtosalonlar</h2>
+
+                <div class="border border-[#E6E6E6] p-6">
+                  <span class="text-xs font-bold uppercase text-[#1C69D4]">Toshkent • Flagman Avtosalon</span>
+                  <h3 class="text-xl font-bold mt-1">BMW Premium Auto Sergeli</h3>
+                  <p class="text-sm text-[#666666] mt-2">Manzil: Toshkent sh., Sergeli tumani, Toshkent halqa avtomobil yo‘li, 72-uy</p>
+                  <p class="text-sm font-semibold mt-2">Telefon: +998 (71) 200-00-07</p>
+                  <p class="text-xs text-[#666666] mt-1">Ish vaqti: Har kuni 09:00 dan 20:00 gacha</p>
+                  <button onclick="openTestDriveModal()" class="mt-4 px-5 py-2.5 bmw-btn-primary text-xs">Sinov haydoviga yozilish</button>
+                </div>
+
+                <div class="border border-[#E6E6E6] p-6">
+                  <span class="text-xs font-bold uppercase text-[#1C69D4]">Toshkent • City Showroom</span>
+                  <h3 class="text-xl font-bold mt-1">BMW City Center Yunusobod</h3>
+                  <p class="text-sm text-[#666666] mt-2">Manzil: Toshkent sh., Yunusobod tumani, Amir Temur shoh ko‘chasi, 108-uy</p>
+                  <p class="text-sm font-semibold mt-2">Telefon: +998 (71) 205-07-07</p>
+                  <p class="text-xs text-[#666666] mt-1">Ish vaqti: Dushanba–Yakshanba 10:00 – 21:00</p>
+                  <button onclick="openTestDriveModal()" class="mt-4 px-5 py-2.5 bmw-btn-outline-dark text-xs">Uchrashuv belgilash</button>
+                </div>
+
+                <div class="border border-[#E6E6E6] p-6">
+                  <span class="text-xs font-bold uppercase text-[#1C69D4]">Samarqand • Hududiy Markaz</span>
+                  <h3 class="text-xl font-bold mt-1">BMW Silk Road Motors</h3>
+                  <p class="text-sm text-[#666666] mt-2">Manzil: Samarqand sh., Registon ko‘chasi, 45-uy</p>
+                  <p class="text-sm font-semibold mt-2">Telefon: +998 (66) 230-07-07</p>
+                </div>
+              </div>
+
+              <!-- Direct Inquiry Form -->
+              <div class="lg:col-span-6">
+                <div class="bg-[#F2F2F2] border border-[#E6E6E6] p-8">
+                  <h2 class="text-2xl font-bold mb-2">Murojaat yuborish</h2>
+                  <p class="text-sm text-[#666666] mb-6">Savollaringiz bormi? Ma’lumotlaringizni qoldiring, mutaxassisimiz 15 daqiqa ichida siz bilan bog‘lanadi.</p>
+
+                  <form onsubmit="event.preventDefault(); showToast('Xabaringiz muvaffaqiyatli yuborildi! Mutaxassisimiz tez orada bog‘lanadi.'); this.reset();" class="space-y-4">
+                    <div>
+                      <label class="block text-xs font-bold uppercase tracking-wider text-[#666666] mb-1.5">Ismingiz *</label>
+                      <input type="text" required placeholder="Ism va familiyangiz" class="w-full bg-white border border-[#CCCCCC] px-4 py-3 text-sm focus:border-[#1C69D4] focus:outline-none" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold uppercase tracking-wider text-[#666666] mb-1.5">Telefon raqamingiz *</label>
+                      <input type="tel" required placeholder="+998 90 000 00 00" class="w-full bg-white border border-[#CCCCCC] px-4 py-3 text-sm focus:border-[#1C69D4] focus:outline-none" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold uppercase tracking-wider text-[#666666] mb-1.5">Mavzu</label>
+                      <select class="w-full bg-white border border-[#CCCCCC] px-4 py-3 text-sm focus:border-[#1C69D4] focus:outline-none">
+                        <option>Avtomobil xaridi va narxlar</option>
+                        <option>Sinov haydovi</option>
+                        <option>Lizing va Kredit shartlari</option>
+                        <option>Servis xizmati va ehtiyot qismlar</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold uppercase tracking-wider text-[#666666] mb-1.5">Xabaringiz</label>
+                      <textarea rows="4" placeholder="Qiziqtirgan model yoki savolingizni yozing..." class="w-full bg-white border border-[#CCCCCC] px-4 py-3 text-sm focus:border-[#1C69D4] focus:outline-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bmw-btn-primary text-sm uppercase tracking-wider">Xabarni yuborish</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 6. INITIALIZATION & KEYBOARD SHORTCUTS
+    // =========================================================================
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMegaMenu();
+        closeSearchOverlay();
+        closeGarageDrawer();
+        closeTestDriveModal();
+        closeLightbox();
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateGarageBadge();
+      renderHomePage();
+    });
+  </script>
+</body>
+</html>
